@@ -21,12 +21,12 @@ return new class extends Migration
               ->on('usuarios')
               ->onDelete('cascade');
 
-        $table->string('estado')->default('pendiente'); // pendiente, preparando, entregado...
-        $table->boolean('es_para_llevar')->default(true);
+        $table->string('estado')->default('pendiente'); 
+        $table->boolean('es_para_llevar')->default(false);
         $table->decimal('total', 8, 2)->default(0);
 
         $table->timestamp('fecha_creacion')->useCurrent();
-        // No fecha_actualizacion porque no la quieres
+       
     });
 }
 

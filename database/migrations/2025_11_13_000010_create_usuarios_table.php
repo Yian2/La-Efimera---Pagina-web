@@ -13,8 +13,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('correo')->unique();
             $table->string('contrasena');
-            $table->string('rol')->default('cliente'); // admin / cliente
-            // IMPORTANT: NO $table->timestamps();
+            $table->string('rol')->default('cliente'); 
+          
         });
     }
 

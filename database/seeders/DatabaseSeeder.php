@@ -6,6 +6,13 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
+use App\Models\Usuario;
+use App\Models\Producto;
+use App\Models\Pedido;
+use App\Models\DetallePedido;
+
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,11 +20,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        /*
-        |-----------------------------------------------------
-        | 1) USUARIOS
-        |-----------------------------------------------------
-        */
+        // 1 USUARIOS
+       
         $adminId = DB::table('usuarios')->insertGetId([
             'nombre'     => 'Admin',
             'correo'     => 'admin@laefimera.test',
@@ -32,11 +36,7 @@ class DatabaseSeeder extends Seeder
             'rol'        => 'cliente',
         ]);
 
-        /*
-        |-----------------------------------------------------
-        | 2) PRODUCTOS
-        |-----------------------------------------------------
-        */
+        //2 PRODUCTOS
         DB::table('productos')->insert([
             // LES VERMELLES
             [
@@ -610,7 +610,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nombre'      => 'Birres artesanes',
                 'descripcion' => 'Cerveses artesanes',
-                'precio'      => 3.50,
+                'precio'      => 4,
                 'tipo'        => 'beguda',
                 'activo'      => true,
             ],
@@ -665,7 +665,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'nombre'      => 'Refrescs Ecos',
-                'descripcion' => 'Refresc eco (gengibre / saüc)',
+                'descripcion' => 'Refresc eco gengibre',
                 'precio'      => 3.50,
                 'tipo'        => 'beguda',
                 'activo'      => true,
@@ -703,7 +703,7 @@ class DatabaseSeeder extends Seeder
             [
                 'nombre'      => 'Vi de la setmana (copa)',
                 'descripcion' => 'Copa de vi de la setmana',
-                'precio'      => 3.50,
+                'precio'      => 4.50,
                 'tipo'        => 'vi',
                 'activo'      => true,
             ],
@@ -716,22 +716,18 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        /*
-        |-----------------------------------------------------
-        | 3) PEDIDO DEMO
-        |-----------------------------------------------------
-        */
+        // 3 EXEMPLE DE COMANDA
 
         // Creem el pedido i guardem l'id
         $pedidoId = DB::table('pedidos')->insertGetId([
-            'usuario_id'     => $clienteId,    // 👈 aquí fem servir el id real del client
+            'usuario_id'     => $clienteId,    //aquí fem servir el id del client
             'estado'         => 'pendiente',
             'es_para_llevar' => true,
-            'total'          => 20.50, // 9 + 11,5
+            'total'          => 20.50, //margarida 9 + diavola 11,5
             'fecha_creacion' => now(),
         ]);
 
-        // Per ser 100% segurs, busquem els IDs per nom (per si algun dia canvies l'ordre)
+        // busquem els ids por si acaso
         $margaridaId = DB::table('productos')
             ->where('nombre', 'La Margarida')
             ->value('id');
@@ -740,7 +736,7 @@ class DatabaseSeeder extends Seeder
             ->where('nombre', 'La Diàvola')
             ->value('id');
 
-        // DETALLES
+        // detalls de la comanda
         DB::table('detalles_pedido')->insert([
             'pedido_id'          => $pedidoId,
             'producto_id'        => $margaridaId,
@@ -760,5 +756,21 @@ class DatabaseSeeder extends Seeder
             'fecha_creacion'     => now(),
             'fecha_actualizacion'=> now(),
         ]);
+
+
+
+        // --- FACTORIES 
+    // alguns usuaris fake
+    Usuario::factory(3)->create();
+
+    // alguns productes fake (encara que ja tens catàleg real)
+    Producto::factory(5)->create();
+
+    // algunes comandes fake (cada una crearà el seu usuari si no l’hi passem)
+    Pedido::factory(3)->create();
+
+    // alguns detalls de comanda fake (crea pedido i producte si cal)
+    DetallePedido::factory(5)->create();
     }
+
 }

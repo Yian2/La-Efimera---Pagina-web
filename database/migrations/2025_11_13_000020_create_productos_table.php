@@ -16,9 +16,9 @@ return new class extends Migration
         $table->string('nombre');
         $table->text('descripcion')->nullable();
         $table->decimal('precio', 8, 2);
-        $table->string('tipo')->default('pizza'); // pizza, bebida, postre, etc.
+        $table->string('tipo')->default('pizza'); 
         $table->boolean('activo')->default(true);
-        // Sin fechas, como tú quieres
+      
     });
 }
 

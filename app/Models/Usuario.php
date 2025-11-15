@@ -3,16 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Usuario extends Model
 {
-    // Taula de la BD
+    use HasFactory;
+
+    public $timestamps = false;
     protected $table = 'usuarios';
 
-    // Com que la taula NO té created_at / updated_at
-    public $timestamps = false;
+    protected $fillable = ['nombre','correo','contrasena','rol'];
 
-    // Relació: un usuari té molts pedidos
+    // (sense casts: no calen de moment)
     public function pedidos()
     {
         return $this->hasMany(Pedido::class, 'usuario_id');
