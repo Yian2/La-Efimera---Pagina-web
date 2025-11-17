@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
-use App\Models\Usuario;
-use App\Models\DetallePedido;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\DB;
 
 class PedidoController extends Controller
 {
@@ -22,19 +20,18 @@ class PedidoController extends Controller
 
     public function create()
     {
-        $usuarios = Usuario::orderBy('nombre')->get();
+        $usuarios = User::orderBy('nombre')->get();
         return view('pedidos.create', compact('usuarios'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
-            'usuario_id'     => ['required','exists:usuarios,id'],
-            'estado'         => ['required','string','max:50', Rule::in(['pendiente','pagado','entregado','cancelado'])],
+            'user_id'        => ['required','exists:users,id'],
+            'estado'         => ['required','string','max:50', Rule::in(['pendiente','preparando','listo','entregado','cancelado'])],
             'es_para_llevar' => ['required','boolean'],
         ]);
 
-        // el total el recalcularem després de línies, però per crear el registre cal un valor
         $data['total'] = 0;
         $data['fecha_creacion'] = now();
 
@@ -53,15 +50,15 @@ class PedidoController extends Controller
 
     public function edit(Pedido $pedido)
     {
-        $usuarios = Usuario::orderBy('nombre')->get();
+        $usuarios = User::orderBy('nombre')->get();
         return view('pedidos.edit', compact('pedido','usuarios'));
     }
 
     public function update(Request $request, Pedido $pedido)
     {
         $data = $request->validate([
-            'usuario_id'     => ['required','exists:usuarios,id'],
-            'estado'         => ['required','string','max:50', Rule::in(['pendiente','pagado','entregado','cancelado'])],
+            'user_id'        => ['required','exists:users,id'],
+            'estado'         => ['required','string','max:50', Rule::in(['pendiente','preparando','listo','entregado','cancelado'])],
             'es_para_llevar' => ['required','boolean'],
         ]);
 
@@ -75,6 +72,7 @@ class PedidoController extends Controller
     public function destroy(Pedido $pedido)
     {
         $pedido->delete();
+
         return redirect()
             ->route('pedidos.index')
             ->with('success','Comanda eliminada.');

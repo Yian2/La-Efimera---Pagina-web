@@ -12,8 +12,8 @@ class ProductoController extends Controller
     {
         $search = request('q');
         $productos = Producto::when($search, function($q) use ($search) {
-                $q->where('nombre','like',"%$search%")
-                  ->orWhere('tipo','like',"%$search%");
+                $q->where('nombre','like',"%{$search}%")
+                  ->orWhere('tipo','like',"%{$search}%");
             })
             ->orderBy('id','desc')
             ->paginate(20)
@@ -34,10 +34,10 @@ class ProductoController extends Controller
             'descripcion' => ['nullable','string'],
             'precio'      => ['required','numeric','min:0'],
             'tipo'        => ['required','string','max:100', Rule::in([
-                'pizza_vermella','pizza_blancha','pizza_gourmet',
+                'pizza_vermella','pizza_blanca','pizza_gourmet',
                 'focaccia','lasanya','calzone','suplement',
                 'amanida','pica_pica','postre','cafe','infusio',
-                'beguda','vi','pizza' // per si n’entra alguna genèrica
+                'beguda','vi','pizza'
             ])],
             'activo'      => ['required','boolean'],
         ]);
@@ -65,7 +65,12 @@ class ProductoController extends Controller
             'nombre'      => ['required','string','max:255'],
             'descripcion' => ['nullable','string'],
             'precio'      => ['required','numeric','min:0'],
-            'tipo'        => ['required','string','max:100'],
+            'tipo'        => ['required','string','max:100', Rule::in([
+                'pizza_vermella','pizza_blanca','pizza_gourmet',
+                'focaccia','lasanya','calzone','suplement',
+                'amanida','pica_pica','postre','cafe','infusio',
+                'beguda','vi','pizza'
+            ])],
             'activo'      => ['required','boolean'],
         ]);
 
@@ -79,6 +84,7 @@ class ProductoController extends Controller
     public function destroy(Producto $producto)
     {
         $producto->delete();
+
         return redirect()
             ->route('productos.index')
             ->with('success','Producte eliminat.');

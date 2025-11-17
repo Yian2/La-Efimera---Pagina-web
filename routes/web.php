@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App/Models/Pedidos;
-use App/Models/Productos;
-use App/Models/Detalles_pedido;
+use App\Models\Pedidos;
+use App\Models\Producto;
+use App\Models\Detalles_pedido;
 
 
 Route::get('/', function () {
@@ -11,9 +11,11 @@ Route::get('/', function () {
 });
 
 
-Route::get("/Productos", function(){
-    $productos=Productos::All();
+
+Route::get('/productos', function(){
+
+    $productos=Producto::All();
     foreach($productos as $p){
-        echo $p;
+        echo $p->nombre;
     }
 });

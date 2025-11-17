@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use App\Models\DetallePedido;
-use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +31,6 @@ class DetallePedidoController extends Controller
 
     public function update(Request $request, Pedido $pedido, DetallePedido $detalle)
     {
-        // assegurem que el detall pertany al pedido
         abort_if($detalle->pedido_id !== $pedido->id, 404);
 
         $data = $request->validate([
