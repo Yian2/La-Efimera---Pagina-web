@@ -12,7 +12,7 @@ class Pedido extends Model
     public $timestamps = false;
     protected $table = 'pedidos';
 
-    protected $fillable = ['usuario_id','estado','es_para_llevar','total','fecha_creacion'];
+    protected $fillable = ['user_id','estado','es_para_llevar','total','fecha_creacion'];
 
     protected $casts = [
         'es_para_llevar'  => 'boolean',
@@ -22,7 +22,7 @@ class Pedido extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'usuario_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function detalles()

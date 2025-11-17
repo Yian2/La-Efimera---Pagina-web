@@ -15,10 +15,10 @@ return new class extends Migration
         $table->id();
 
         // FK a usuarios.id
-        $table->unsignedBigInteger('usuario_id');
-        $table->foreign('usuario_id')
+        $table->unsignedBigInteger('user_id');
+        $table->foreign('user_id')
               ->references('id')
-              ->on('usuarios')
+              ->on('users')
               ->onDelete('cascade');
 
         $table->string('estado')->default('pendiente'); 

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
-use App\Models\Usuario;
+//use App\Models\Usuario;
 use App\Models\Producto;
 use App\Models\Pedido;
 use App\Models\DetallePedido;
@@ -20,19 +20,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1 USUARIOS
+        // 1 users
        
-        $adminId = DB::table('usuarios')->insertGetId([
+        $adminId = DB::table('users')->insertGetId([
             'nombre'     => 'Admin',
-            'correo'     => 'admin@laefimera.test',
-            'contrasena' => Hash::make('123456'),
+            'email'     => 'admin@laefimera.test',
+            'password' => Hash::make('123456'),
             'rol'        => 'admin',
         ]);
 
-        $clienteId = DB::table('usuarios')->insertGetId([
+        $clienteId = DB::table('users')->insertGetId([
             'nombre'     => 'Cliente Demo',
-            'correo'     => 'cliente@laefimera.test',
-            'contrasena' => Hash::make('123456'),
+            'email'     => 'cliente@laefimera.test',
+            'password' => Hash::make('123456'),
             'rol'        => 'cliente',
         ]);
 
@@ -143,35 +143,35 @@ class DatabaseSeeder extends Seeder
                 'nombre'      => 'La Black&White',
                 'descripcion' => 'Gorgonzola, ceba, olives negres',
                 'precio'      => 11.50,
-                'tipo'        => 'pizza_blancha',
+                'tipo'        => 'pizza_blanca',
                 'activo'      => true,
             ],
             [
                 'nombre'      => 'La Anxoves',
                 'descripcion' => 'Ceba, tàperes, anxoves, olives',
                 'precio'      => 11.50,
-                'tipo'        => 'pizza_blancha',
+                'tipo'        => 'pizza_blanca',
                 'activo'      => true,
             ],
             [
                 'nombre'      => 'La Tonna',
                 'descripcion' => 'Tonyina, ceba, tàperes, olives',
                 'precio'      => 12.50,
-                'tipo'        => 'pizza_blancha',
+                'tipo'        => 'pizza_blanca',
                 'activo'      => true,
             ],
             [
                 'nombre'      => 'La Frida',
                 'descripcion' => 'Ricotta, pesto, ruca, tomàquet fresc, parmesà',
                 'precio'      => 15.00,
-                'tipo'        => 'pizza_blancha',
+                'tipo'        => 'pizza_blanca',
                 'activo'      => true,
             ],
             [
                 'nombre'      => 'La 4 Formatges',
                 'descripcion' => 'Gorgonzola, taleggio, pecorino, escalunyes, sàlvia',
                 'precio'      => 15.00,
-                'tipo'        => 'pizza_blancha',
+                'tipo'        => 'pizza_blanca',
                 'activo'      => true,
             ],
 
@@ -720,7 +720,7 @@ class DatabaseSeeder extends Seeder
 
         // Creem el pedido i guardem l'id
         $pedidoId = DB::table('pedidos')->insertGetId([
-            'usuario_id'     => $clienteId,    //aquí fem servir el id del client
+            'user_id'     => $clienteId,    //aquí fem servir el id del client
             'estado'         => 'pendiente',
             'es_para_llevar' => true,
             'total'          => 20.50, //margarida 9 + diavola 11,5
@@ -761,16 +761,16 @@ class DatabaseSeeder extends Seeder
 
         // --- FACTORIES 
     // alguns usuaris fake
-    Usuario::factory(3)->create();
+    //Usuario::factory(3)->create();
 
     // alguns productes fake (encara que ja tens catàleg real)
-    Producto::factory(5)->create();
+   // Producto::factory(5)->create();
 
     // algunes comandes fake (cada una crearà el seu usuari si no l’hi passem)
-    Pedido::factory(3)->create();
+    //Pedido::factory(3)->create();
 
     // alguns detalls de comanda fake (crea pedido i producte si cal)
-    DetallePedido::factory(5)->create();
+    //DetallePedido::factory(5)->create();
     }
 
 }
