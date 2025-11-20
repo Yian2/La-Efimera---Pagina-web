@@ -1,21 +1,28 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Pedidos;
-use App\Models\Producto;
-use App\Models\Detalles_pedido;
 
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get('/productos', function(){
-
-    $productos=Producto::All();
-    foreach($productos as $p){
-        echo $p->nombre;
-    }
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
+Route::get('/', function () {
+    return view('home'); // resources/views/home.blade.php
+})->name('home');
+
+
+require __DIR__.'/auth.php';
