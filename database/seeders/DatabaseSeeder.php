@@ -7,11 +7,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
-//use App\Models\Usuario;
 use App\Models\Producto;
 use App\Models\Pedido;
 use App\Models\DetallePedido;
-
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {

@@ -5,14 +5,6 @@
 @endpush
 
 <x-app-layout :title="'Pizzeria Creativa · La Efímera'">
-    {{-- Si vols capçalera Breeze, descomenta:
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Inici
-        </h2>
-    </x-slot>
-    --}}
-
     {{-- NAVBAR --}}
     <header class="navbar">
         <div class="nav-inner">
@@ -41,114 +33,95 @@
     <main id="carta" class="section">
         <div class="section-head">
             <h2 class="script">La nostra carta</h2>
-            <p class="muted">Inspirada en la teva segona imatge: base de tomàquet o mozzarella, opcions gourmet i focaccies. (Afegeix/edita plats i preus al teu gust.)</p>
+            <p class="muted">Base de tomàquet o mozzarella, opcions gourmet, focaccies i més.</p>
         </div>
 
-        <div class="menu-paper">
-            {{-- Columna 1 --}}
-            <article class="menu-col">
-                <h3 class="menu-heading">Les Vermelles <span>(base de tomàquet + mozzarella)</span></h3>
-                <ul class="menu-list">
-                    <li>
-                        <div class="menu-line">
-                            <span class="menu-item">La Margarita</span>
-                            <span class="dots"></span>
-                            <span class="price">9,0€</span>
-                        </div>
-                        <p class="desc">tomàquet, mozzarella, alfàbrega</p>
-                    </li>
-                    <li>
-                        <div class="menu-line"><span class="menu-item">La York</span><span class="dots"></span><span class="price">10,5€</span></div>
-                        <p class="desc">pernil dolç</p>
-                    </li>
-                    <li>
-                        <div class="menu-line"><span class="menu-item">La Carbonara</span><span class="dots"></span><span class="price">12,5€</span></div>
-                        <p class="desc">bacó, ou, parmesà, pebre</p>
-                    </li>
-                    <li>
-                        <div class="menu-line"><span class="menu-item">La Diàvola</span><span class="dots"></span><span class="price">12,0€</span></div>
-                        <p class="desc">tomàquet, mozzarella, salami picant i xili chipotle</p>
-                    </li>
-                </ul>
+        <div class="menu-paper onecol">
+            @php
+                // Ordre de categories (tal com m'has demanat)
+                $orden = [
+                    'pica_pica',
+                    'amanida',
+                    'pizza_vermella',
+                    'pizza_blanca',
+                    'pizza_gourmet',
+                    'calzone',
+                    'focaccia',
+                    'lasanya',
+                    'postre',
+                    'suplement',
+                    'beguda',
+                    'vi',
+                    'infusio', // (l'he posat just abans de cafès; treu-la o mou-la si vols)
+                    'cafe',
+                ];
 
-                <h3 class="menu-heading">Les Blanques <span>(base de mozzarella)</span></h3>
-                <ul class="menu-list">
-                    <li>
-                        <div class="menu-line"><span class="menu-item">La Black &amp; White</span><span class="dots"></span><span class="price">11,5€</span></div>
-                        <p class="desc">gorgonzola, ceba, olives negres</p>
-                    </li>
-                    <li>
-                        <div class="menu-line"><span class="menu-item">La Quatre Formaggi</span><span class="dots"></span><span class="price">13,0€</span></div>
-                        <p class="desc">mozza, gorgonzola, taleggio, pecorino</p>
-                    </li>
-                </ul>
+                // Labels bonics (si ja els tens, pots eliminar això)
+                $labels = [
+                    'pizza_vermella' => ['Les Vermelles', '(base de tomàquet + mozzarella)'],
+                    'pizza_blanca'   => ['Les Blanques', '(base de mozzarella)'],
+                    'suplement'      => ['Suplements',''],
+                    'pizza_gourmet'  => ['Les Gourmets',''],
+                    'calzone'        => ['Calzones',''],
+                    'focaccia'       => ['Focaccies',''],
+                    'lasanya'        => ['Lasanya',''],
+                    'amanida'        => ['Amanides',''],
+                    'pica_pica'      => ['Pica Pica',''],
+                    'postre'         => ['Postres',''],
+                    'cafe'           => ['Cafès',''],
+                    'infusio'        => ['Infusions',''],
+                    'beguda'         => ['Begudes',''],
+                    'vi'             => ['Vins',''],
+                ];
 
-                <h3 class="menu-heading">Suplements</h3>
-                <ul class="menu-tags">
-                    <li>Sense gluten +2,5€</li>
-                    <li>Ou +1,0€</li>
-                    <li>Chipotle +0,5€</li>
-                    <li>Pa de focaccia +2,5€</li>
-                </ul>
-            </article>
+                // Categories que vols en 2 columnes
+                $duesColumnes = ['pizza_vermella','pizza_blanca','pizza_gourmet','amanida','pica_pica','postre','beguda','infusio','vi'];
+            @endphp
 
-            {{-- Columna 2 --}}
-            <article class="menu-col">
-                <h3 class="menu-heading">Les Gourmets</h3>
-                <ul class="menu-list">
-                    <li>
-                        <div class="menu-line"><span class="menu-item">La Nostra</span><span class="dots"></span><span class="price">16,0€</span></div>
-                        <p class="desc">salsa de tomàquet rostit, mozza, carbassó rostit, xampinyó fresc, ou, parmesà</p>
-                    </li>
-                    <li>
-                        <div class="menu-line"><span class="menu-item">L’Asparragada</span><span class="dots"></span><span class="price">15,5€</span></div>
-                        <p class="desc">tomàquet, prosc. bufarra, ricotta, carbassó, ceba caramel·litzada</p>
-                    </li>
-                    <li>
-                        <div class="menu-line"><span class="menu-item">Horney</span><span class="dots"></span><span class="price">15,5€</span></div>
-                        <p class="desc">mozza, albergínia rostida, tomàquet sec, parmesà, pesto</p>
-                    </li>
-                </ul>
+            @foreach ($orden as $tipus)
+                @if(isset($productos[$tipus]) && $productos[$tipus]->count())
+                    @php
+                        [$titol, $sub] = $labels[$tipus] ?? [$tipus, ''];
+                        $classeCols = in_array($tipus, $duesColumnes) ? 'columns-2' : '';
+                    @endphp
 
-                <h3 class="menu-heading">Calzones</h3>
-                <ul class="menu-list">
-                    <li>
-                        <div class="menu-line"><span class="menu-item">El Scamorza</span><span class="dots"></span><span class="price">14,0€</span></div>
-                        <p class="desc">mozzarella, pernil dolç, scamorza, ou</p>
-                    </li>
-                    <li>
-                        <div class="menu-line"><span class="menu-item">El Ricotta</span><span class="dots"></span><span class="price">13,0€</span></div>
-                        <p class="desc">mozza, ricotta, tomàquet sec, pesto</p>
-                    </li>
-                </ul>
-            </article>
+                    <section class="menu-section">
+                        <h3 class="menu-heading">
+                            {{ $titol }} @if($sub) <span>{{ $sub }}</span> @endif
+                        </h3>
 
-            {{-- Columna 3 --}}
-            <article class="menu-col">
-                <h3 class="menu-heading">Postres</h3>
-                <ul class="menu-list">
-                    <li><div class="menu-line"><span class="menu-item">Tiramisù</span><span class="dots"></span><span class="price">5,0€</span></div></li>
-                    <li><div class="menu-line"><span class="menu-item">Brownie amb gelat</span><span class="dots"></span><span class="price">6,5€</span></div></li>
-                    <li><div class="menu-line"><span class="menu-item">Panna cotta</span><span class="dots"></span><span class="price">4,5€</span></div></li>
-                </ul>
+                        @if(in_array($tipus, ['cafe','infusio']))
+                            <ul class="menu-list simple {{ $classeCols }}">
+                                @foreach($productos[$tipus] as $p)
+                                    <li>
+                                        <span>{{ $p->nombre }}</span>
+                                        <span class="price">{{ number_format($p->precio, 2, ',', '') }}€</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @else
+                            <ul class="menu-list {{ $classeCols }}">
+                                @foreach($productos[$tipus] as $p)
+                                    <li>
+                                        <div class="menu-line">
+                                            <span class="menu-item">{{ $p->nombre }}</span>
+                                            <span class="dots"></span>
+                                            <span class="price">{{ number_format($p->precio, 2, ',', '') }}€</span>
+                                        </div>
+                                        @if($p->descripcion)
+                                            <p class="desc">{{ $p->descripcion }}</p>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </section>
+                @endif
+            @endforeach
 
-                <h3 class="menu-heading">Cafès</h3>
-                <ul class="menu-list simple">
-                    <li><span>Cafè</span> <span class="price">1,2€</span></li>
-                    <li><span>Tallat</span> <span class="price">1,4€</span></li>
-                    <li><span>Trifàsic</span> <span class="price">2,5€</span></li>
-                </ul>
-
-                <h3 class="menu-heading">Infusions</h3>
-                <ul class="menu-tags">
-                    <li>Rooibos</li><li>Camamilla</li><li>Menta</li>
-                    <li>Te verd</li><li>Te negre Ceilan</li><li>Te Kukicha</li>
-                </ul>
-
-                <div class="note">
-                    * Avisa’ns d’al·lèrgies o intoleràncies. Productes locals i massa de fermentació lenta.
-                </div>
-            </article>
+            <div class="note">
+                 Avisa’ns d’al·lèrgies o intoleràncies. Productes locals i tots els formatges són pasturitzats
+            </div>
         </div>
     </main>
 
@@ -156,13 +129,12 @@
     <section id="takeaway" class="section alt">
         <div class="section-head">
             <h2 class="script">Take Away</h2>
-            <p>Fes la comanda per telèfon i recull-la al nostre obrador. Descomptes en comandes grans.</p>
+            <p>Fes la comanda per telèfon i recull-la al nostre obrador.</p>
         </div>
-
         <div class="card-grid">
             <div class="card">
-                <h3>Horari</h3>
-                <p>De <strong>dc a dv</strong> 19:30–22:30 · <strong>ds i dg</strong> 13:00–15:30 / 19:30–23:00</p>
+                <h3>Horari del forn</h3>
+                <p>De <strong>dimecres a divendres</strong> 18:30–22:30 · <strong>i diumenge</strong> 13:00-22:30</p>
             </div>
             <div class="card">
                 <h3>Telèfon</h3>

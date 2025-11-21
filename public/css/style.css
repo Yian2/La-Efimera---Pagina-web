@@ -200,3 +200,45 @@ body {
   .card-grid { grid-template-columns: 1fr; }
   .hero { padding-top: 60px; }
 }
+
+
+/* —— Arreglar el 'paper' perquè NO sigui grid quan usem onecol —— */
+.menu-paper.onecol{
+  display: block;           /* anul·la display:grid de .menu-paper */
+  grid-template-columns: unset;
+}
+
+/* Amplada segura centrada (no s'escapa de la pantalla) */
+.menu-paper{
+  max-width: 1100px;
+  width: min(1100px, calc(100% - 40px)); /* 20px de marge a cada costat */
+  margin-inline: auto;
+}
+
+/* Separació entre seccions dins del paper en mode onecol */
+.menu-paper.onecol .menu-section + .menu-section{
+  margin-top: 26px;
+}
+
+/* Llistes en 2 columnes (ja ho tens, ho deixo aquí per si no hi era) */
+.menu-list.columns-2{
+  columns: 2;
+  column-gap: 28px;
+}
+.menu-list.columns-2 li{
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+}
+@media (max-width: 768px){
+  .menu-list.columns-2{ columns: 1; }
+}
+
+/* Evitar que algun nom llarg forci horitzontal */
+.menu-item, .desc{
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Per si algun component afegeix scroll horitzontal accidental */
+html, body { overflow-x: hidden; }
