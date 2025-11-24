@@ -8,23 +8,18 @@
 
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
-    {{-- Fonts i CSS de Vite (si els uses) --}}
+    {{-- Vite (si el fas servir) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- ✅ important per carregar el teu style.css i fonts del home --}}
+    {{-- 👇 Fonts + el teu CSS global (public/css/style.css) --}}
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Quicksand:wght@400;600&family=Yellowtail&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    {{-- Si alguna vista fa @push('styles'), ho rebrà aquí --}}
     @stack('styles')
 </head>
 <body class="font-sans antialiased">
- 
     <div class="min-h-screen">
-        {{-- @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset --}}
-
         <main>
             {{ $slot }}
         </main>

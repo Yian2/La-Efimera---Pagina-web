@@ -16,7 +16,9 @@
                 <a href="#carta">Carta</a>
                 <a href="#takeaway">Take Away</a>
                 <a href="#contacte">Contacte</a>
+                <a href="{{ route('acces') }}" target="_blank" rel="noopener">Accés</a>
             </nav>
+
         </div>
     </header>
 
@@ -28,6 +30,8 @@
             <a class="cta" href="#carta">Veure la carta</a>
         </div>
     </section>
+
+    
 
     {{-- CARTA --}}
     <main id="carta" class="section">
