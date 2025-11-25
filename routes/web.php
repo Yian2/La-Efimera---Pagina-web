@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClientComptController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Producto;
+use App\Http\Controllers\LocalizationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -76,5 +78,26 @@ Route::middleware('auth')->prefix('client')->name('client.')->group(function () 
     Route::get('/track', [ClientComptController::class, 'track'])->name('track');    // Estat comanda
     Route::get('/loyalty', [ClientComptController::class, 'loyalty'])->name('loyalty'); // Punts
 });
+
+
+
+
+//rutes canvi idiomes
+
+/*
+Route::get('/lang/{idioma}', [LocalizationController::class, 'index'])
+    ->whereIn('idioma', ['ca','es','en','fr'])
+    ->name('lang.switch');*/
+
+
+
+Route::get('/lang/{locale}', function (string $locale) {
+$available = ['ca','es'];
+if (in_array($locale, $available, true)) {
+session(['idioma' => $locale]);
+}
+return back();
+})->name('lang.switch');
+
 
 require __DIR__.'/auth.php';

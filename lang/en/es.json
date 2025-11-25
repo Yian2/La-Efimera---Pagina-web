@@ -1,0 +1,56 @@
+
+{
+  "Carta": "Carta",
+  "Take Away": "Para llevar",
+  "Contacte": "Contacto",
+  "Accés": "Acceso",
+  "Català": "Catalán",
+  "Español": "Español",
+  "Anglès": "Inglés",
+  "Francès": "Francés",
+
+  "Pizzes artesanes · Obra d’autor": "Pizzas artesanas · Obra de autor",
+  "Veure la carta": "Ver la carta",
+  "La nostra carta": "Nuestra carta",
+  "Base de tomàquet o mozzarella, opcions gourmet, focaccies i més.": "Base de tomate o mozzarella, opciones gourmet, focaccias y más.",
+
+  "El meu espai": "Mi espacio",
+  "Hola, :name. Gestiona les teves comandes i avantatges.": "Hola, :name. Gestiona tus pedidos y ventajas.",
+  "Tancar sessió": "Cerrar sesión",
+
+  "Demanar per emportar": "Pedir para llevar",
+  "Fes la teva comanda i vine a recollir-la.": "Haz tu pedido y ven a recogerlo.",
+  "Inicia la comanda": "Iniciar pedido",
+
+  "Historial de comandes": "Historial de pedidos",
+  "Revisa què vas demanar i repeteix fàcilment.": "Revisa lo que pediste y repite fácilmente.",
+  "Veure historial": "Ver historial",
+
+  "Estat de la meva comanda": "Estado de mi pedido",
+  "Segueix la preparació i l’estat d’entrega.": "Sigue la preparación y el estado de entrega.",
+  "Veure estat": "Ver estado",
+
+  "Última comanda": "Último pedido",
+  "Total": "Total",
+
+  "Punts i recompenses": "Puntos y recompensas",
+  "Tiramisù, Panna cotta o Cheesecake": "Tiramisú, Panna cotta o Cheesecake",
+  "Total punts": "Puntos totales",
+  "Progrés actual: :percent% cap a la propera recompensa.": "Progreso actual: :percent% hacia la próxima recompensa.",
+
+  "Encara no tens comandes.": "Aún no tienes pedidos.",
+  "Estat de la comanda": "Estado del pedido",
+  "Segueix en temps real quan la teva comanda estigui llesta.": "Sigue en tiempo real cuando tu pedido esté listo.",
+
+  "pendiente": "pendiente",
+  "preparando": "preparando",
+  "listo": "listo",
+  "entregado": "entregado"
+
+
+  
+
+  
+  
+
+}

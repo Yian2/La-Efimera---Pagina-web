@@ -8,85 +8,81 @@
     {{-- NAVBAR --}}
     <header class="navbar">
         <div class="nav-inner">
-            <a href="{{ route('home') }}" class="brand" aria-label="Inici">
+            <a href="{{ route('home') }}" class="brand" aria-label="@lang('Inici')">
                 <span class="brand-script">La Efímera</span>
-                <span class="brand-sub">pizzeria creativa</span>
+                <span class="brand-sub">@lang('pizzeria creativa')</span>
             </a>
-            <nav class="nav">
-                <a href="#carta">Carta</a>
-                <a href="#takeaway">Take Away</a>
-                <a href="#contacte">Contacte</a>
-                <a href="{{ route('acces') }}" target="_blank" rel="noopener">Accés</a>
-            </nav>
 
+            <nav class="nav">
+                <a href="#carta">@lang('Carta')</a>
+                <a href="#takeaway">@lang('Take Away')</a>
+                <a href="#contacte">@lang('Contacte')</a>
+                <a href="{{ route('acces') }}" target="_blank" rel="noopener">@lang('Accés')</a>
+
+                {{-- ▼ Desplegable d'idioma --}}
+                <div class="lang-dropdown">
+                    <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                        {{ strtoupper(app()->getLocale()) }}
+                        <svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7l5 6 5-6H5z" fill="currentColor"/></svg>
+                    </button>
+                    <div class="lang-menu">
+                        <a href="{{ route('lang.switch','ca') }}">Català</a>
+                        <a href="{{ route('lang.switch','es') }}">Español</a>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
 
     {{-- HERO --}}
     <section class="hero">
         <div class="hero-inner">
-            <h1>Pizzes artesanes · Obra d’autor</h1>
-            <p>Ingredients frescos, massa amb fermentació lenta i un toc artístic. Vine al nostre obrador o demana per emportar.</p>
-            <a class="cta" href="#carta">Veure la carta</a>
+            <h1>@lang("Pizzes artesanes · Obra d'autor")</h1>
+            <p>@lang('Ingredients frescos, massa amb fermentació lenta i un toc artístic. Vine al nostre obrador o demana per emportar.')</p>
+            <a class="cta" href="#carta">@lang('Veure la carta')</a>
         </div>
     </section>
-
-    
 
     {{-- CARTA --}}
     <main id="carta" class="section">
         <div class="section-head">
-            <h2 class="script">La nostra carta</h2>
-            <p class="muted">Base de tomàquet o mozzarella, opcions gourmet, focaccies i més.</p>
+            <h2 class="script">@lang('La nostra carta')</h2>
+            <p class="muted">@lang('Base de tomàquet o mozzarella, opcions gourmet, focaccies i més.')</p>
         </div>
 
         <div class="menu-paper onecol">
             @php
-                // Ordre de categories (tal com m'has demanat)
                 $orden = [
-                    'pica_pica',
-                    'amanida',
-                    'pizza_vermella',
-                    'pizza_blanca',
-                    'pizza_gourmet',
-                    'calzone',
-                    'focaccia',
-                    'lasanya',
-                    'postre',
-                    'suplement',
-                    'beguda',
-                    'vi',
-                    'infusio', // (l'he posat just abans de cafès; treu-la o mou-la si vols)
-                    'cafe',
+                    'pica_pica','amanida','pizza_vermella','pizza_blanca','pizza_gourmet',
+                    'calzone','focaccia','lasanya','postre','suplement','beguda','vi','infusio','cafe',
                 ];
 
-                // Labels bonics (si ja els tens, pots eliminar això)
                 $labels = [
-                    'pizza_vermella' => ['Les Vermelles', '(base de tomàquet + mozzarella)'],
-                    'pizza_blanca'   => ['Les Blanques', '(base de mozzarella)'],
-                    'suplement'      => ['Suplements',''],
-                    'pizza_gourmet'  => ['Les Gourmets',''],
-                    'calzone'        => ['Calzones',''],
-                    'focaccia'       => ['Focaccies',''],
-                    'lasanya'        => ['Lasanya',''],
-                    'amanida'        => ['Amanides',''],
-                    'pica_pica'      => ['Pica Pica',''],
-                    'postre'         => ['Postres',''],
-                    'cafe'           => ['Cafès',''],
-                    'infusio'        => ['Infusions',''],
-                    'beguda'         => ['Begudes',''],
-                    'vi'             => ['Vins',''],
+                    'pizza_vermella' => [__('Les Vermelles'), __('(base de tomàquet + mozzarella)')],
+                    'pizza_blanca'   => [__('Les Blanques'), __('(base de mozzarella)')],
+                    'suplement'      => [__('Suplements'), ''],
+                    'pizza_gourmet'  => [__('Les Gourmets'), ''],
+                    'calzone'        => [__('Calzones'), ''],
+                    'focaccia'       => [__('Focaccies'), ''],
+                    'lasanya'        => [__('Lasanya'), ''],
+                    'amanida'        => [__('Amanides'), ''],
+                    'pica_pica'      => [__('Pica Pica'), ''],
+                    'postre'         => [__('Postres'), ''],
+                    'cafe'           => [__('Cafès'), ''],
+                    'infusio'        => [__('Infusions'), ''],
+                    'beguda'         => [__('Begudes'), ''],
+                    'vi'             => [__('Vins'), ''],
                 ];
 
-                // Categories que vols en 2 columnes
                 $duesColumnes = ['pizza_vermella','pizza_blanca','pizza_gourmet','amanida','pica_pica','postre','beguda','infusio','vi'];
+                $loc = app()->getLocale();
             @endphp
 
             @foreach ($orden as $tipus)
                 @if(isset($productos[$tipus]) && $productos[$tipus]->count())
                     @php
                         [$titol, $sub] = $labels[$tipus] ?? [$tipus, ''];
-                        $classeCols = in_array($tipus, $duesColumnes) ? 'columns-2' : '';
+                        $classeCols = in_array($tipus, $duesColumnes, true) ? 'columns-2' : '';
                     @endphp
 
                     <section class="menu-section">
@@ -94,11 +90,14 @@
                             {{ $titol }} @if($sub) <span>{{ $sub }}</span> @endif
                         </h3>
 
-                        @if(in_array($tipus, ['cafe','infusio']))
+                        @if(in_array($tipus, ['cafe','infusio'], true))
                             <ul class="menu-list simple {{ $classeCols }}">
                                 @foreach($productos[$tipus] as $p)
+                                    @php
+                                        $n = $p->{'nombre_'.$loc} ?? $p->nombre;
+                                    @endphp
                                     <li>
-                                        <span>{{ $p->nombre }}</span>
+                                        <span>{{ $n }}</span>
                                         <span class="price">{{ number_format($p->precio, 2, ',', '') }}€</span>
                                     </li>
                                 @endforeach
@@ -106,14 +105,18 @@
                         @else
                             <ul class="menu-list {{ $classeCols }}">
                                 @foreach($productos[$tipus] as $p)
+                                    @php
+                                        $n = $p->{'nombre_'.$loc} ?? $p->nombre;
+                                        $d = $p->{'descripcion_'.$loc} ?? $p->descripcion;
+                                    @endphp
                                     <li>
                                         <div class="menu-line">
-                                            <span class="menu-item">{{ $p->nombre }}</span>
+                                            <span class="menu-item">{{ $n }}</span>
                                             <span class="dots"></span>
                                             <span class="price">{{ number_format($p->precio, 2, ',', '') }}€</span>
                                         </div>
-                                        @if($p->descripcion)
-                                            <p class="desc">{{ $p->descripcion }}</p>
+                                        @if($d)
+                                            <p class="desc">{{ $d }}</p>
                                         @endif
                                     </li>
                                 @endforeach
@@ -124,7 +127,7 @@
             @endforeach
 
             <div class="note">
-                 Avisa’ns d’al·lèrgies o intoleràncies. Productes locals i tots els formatges són pasturitzats
+                @lang('Avisa’ns d’al·lèrgies o intoleràncies. Productes locals i tots els formatges són pasturitzats')
             </div>
         </div>
     </main>
@@ -132,21 +135,21 @@
     {{-- TAKE AWAY --}}
     <section id="takeaway" class="section alt">
         <div class="section-head">
-            <h2 class="script">Take Away</h2>
-            <p>Fes la comanda per telèfon i recull-la al nostre obrador.</p>
+            <h2 class="script">@lang('Take Away')</h2>
+            <p>@lang('Fes la comanda per telèfon i recull-la al nostre obrador.')</p>
         </div>
         <div class="card-grid">
             <div class="card">
-                <h3>Horari del forn</h3>
-                <p>De <strong>dimecres a divendres</strong> 18:30–22:30 · <strong>i diumenge</strong> 13:00-22:30</p>
+                <h3>@lang('Horari del forn')</h3>
+                <p>@lang('De :d1 18:30–22:30 · i :d2 13:00-22:30', ['d1' => __('dimecres a divendres'), 'd2' => __('diumenge')])</p>
             </div>
             <div class="card">
-                <h3>Telèfon</h3>
+                <h3>@lang('Telèfon')</h3>
                 <p><a class="tel" href="tel:+34934219089">+34934219089</a></p>
             </div>
             <div class="card">
-                <h3>Adreça</h3>
-                <p>Carretera del Montseny, 34 · 08461 Sant Esteve de Palautordera</p>
+                <h3>@lang('Adreça')</h3>
+                <p>@lang('Carretera del Montseny, 34 · 08461 Sant Esteve de Palautordera')</p>
             </div>
         </div>
     </section>
@@ -154,30 +157,29 @@
     {{-- CONTACTE --}}
     <section id="contacte" class="section">
         <div class="section-head">
-            <h2 class="script">Contacte</h2>
-            <p>Reserves, esdeveniments i música en viu. Escriu-nos!</p>
+            <h2 class="script">@lang('Contacte')</h2>
+            <p>@lang('Reserves, esdeveniments i música en viu. Escriu-nos!')</p>
         </div>
 
         <div class="contact-wrap">
             <form class="contact-form" action="#" method="post">
-                {{-- @csrf si un dia envies el formulari --}}
-                <label>Nom
+                <label>@lang('Nom')
                     <input type="text" name="name" required>
                 </label>
-                <label>Correu
+                <label>@lang('Correu')
                     <input type="email" name="email" required>
                 </label>
-                <label>Missatge
+                <label>@lang('Missatge')
                     <textarea name="message" rows="5" required></textarea>
                 </label>
-                <button type="submit" disabled title="El JS el posaràs tu 😉">Enviar</button>
-                <small class="muted">(* El botó queda deshabilitat, afegeix JS per gestionar l’enviament.)</small>
+                <button type="submit" disabled title="@lang('El JS el posaràs tu')">@lang('Enviar')</button>
+                <small class="muted">@lang('(* El botó queda deshabilitat, afegeix JS per gestionar l’enviament.)')</small>
             </form>
 
             <aside class="mapcard">
-                <h3>On som</h3>
-                <p>Carretera del Montseny, 34<br>08461 Sant Esteve de Palautordera</p>
-                <a class="cta ghost" target="_blank" rel="noopener" href="https://maps.google.com">Obrir al Maps</a>
+                <h3>@lang('On som')</h3>
+                <p>@lang('Carretera del Montseny, 34')<br>08461 Sant Esteve de Palautordera</p>
+                <a class="cta ghost" target="_blank" rel="noopener" href="https://maps.google.com">@lang('Obrir al Maps')</a>
             </aside>
         </div>
     </section>
@@ -185,8 +187,8 @@
     {{-- FOOTER --}}
     <footer class="footer">
         <div class="footer-inner">
-            <p>© <span id="y">2025</span> La Efímera · Pizzeria creativa</p>
-            <p class="muted">IG: @laefimerapizzeria · All you knead is love.</p>
+            <p>© <span id="y">2025</span> La Efímera · @lang('Pizzeria creativa')</p>
+            <p class="muted">IG: @laefimerapizzeria · @lang('All you knead is love.')</p>
         </div>
     </footer>
 </x-app-layout>

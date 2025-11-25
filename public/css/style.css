@@ -366,3 +366,38 @@ html, body { overflow-x: hidden; }
   border-color: #ef4444;
   color: #ef4444;
 }
+
+
+
+
+/* ====== Dropdown idiomes ====== */
+.nav { display: flex; align-items: center; gap: 18px; }
+
+.lang-dropdown { position: relative; }
+.lang-btn{
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 12px; border-radius: 999px;
+  background: transparent; color: var(--gold);
+  border: 1px dashed var(--gold); cursor: pointer;
+  font-weight: 700;
+}
+.lang-btn svg { transform: translateY(1px); }
+
+.lang-menu{
+  position: absolute; right: 0; top: calc(100% + 8px);
+  min-width: 140px;
+  display: none; /* amagat per defecte */
+  background: var(--surface); color: #eaeaea;
+  border: 1px dashed rgba(217,164,65,.25);
+  border-radius: 12px; box-shadow: var(--shadow);
+  padding: 8px;
+}
+.lang-menu a{
+  display: block; padding: 8px 10px; text-decoration: none; color: inherit;
+  border-radius: 8px; font-weight: 600;
+}
+.lang-menu a:hover{ background: rgba(217,164,65,.10); color: var(--gold); }
+
+/* Mostra el menú al hover o focus (accessibilitat sense JS) */
+.lang-dropdown:hover .lang-menu,
+.lang-dropdown:focus-within .lang-menu{ display: block; }

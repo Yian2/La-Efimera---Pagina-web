@@ -1,64 +1,48 @@
 <x-app-layout>
-    <section class="section">
-        <div class="section-head">
-            <h2 class="script">El meu espai</h2>
-            <p class="muted">Hola, {{ $user->nombre ?? $user->name }}. Gestiona les teves comandes i avantatges.</p>
-        </div>
-        {{-- Accions de pàgina (dreta) --}}
-        <div class="page-actions">
-            <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                @csrf
-                <button type="submit" class="cta ghost danger">Tancar sessió</button>
-            </form>
-        </div>
+</div>
 
 
-        <div class="card-grid">
-            <div class="card">
-                <h3>Demanar per emportar</h3>
-                <p>Fes la teva comanda i vine a recollir-la.</p>
-                <a class="cta" href="#carta">Inicia la comanda</a>
-            </div>
+<div class="card">
+<h3>@lang('Estat de la meva comanda')</h3>
+<p>@lang('Segueix la preparació i l’estat d’entrega.')</p>
+<a class="cta ghost" href="{{ route('client.track') }}">@lang('Veure estat')</a>
+</div>
+</div>
 
-            <div class="card">
-                <h3>Historial de comandes</h3>
-                <p>Revisa què vas demanar i repeteix fàcilment.</p>
-                <a class="cta ghost" href="{{ route('client.orders') }}" target="_blank" rel="noopener">Veure historial</a>
-            </div>
 
-            <div class="card">
-                <h3>Estat de la meva comanda</h3>
-                <p>Segueix la preparació i l’estat d’entrega.</p>
-                <a class="cta ghost" href="{{ route('client.track') }}" target="_blank" rel="noopener">Veure estat</a>
-            </div>
+@if($ultimaComanda)
+<div class="card" style="max-width:1100px;margin:18px auto 0;">
+<h3>@lang('Última comanda') #{{ $ultimaComanda->id }} ({{ __($ultimaComanda->estado) }})</h3>
+<ul class="menu-list">
+@foreach($ultimaComanda->detalles as $d)
+<li>
+<div class="menu-line">
+<span class="menu-item">{{ $d->producto->nombre }} × {{ $d->cantidad }}</span>
+<span class="dots"></span>
+<span class="price">{{ number_format($d->subtotal,2,',','.') }}€</span>
+</div>
+</li>
+@endforeach
+</ul>
+<p><strong>@lang('Total'):</strong> {{ number_format($ultimaComanda->total,2,',','.') }}€</p>
+</div>
+@endif
 
-            <div class="card">
-                <h3>Punts & Recompenses</h3>
-                <p>Acumules 1 punt per 10€ gastat: Tiramisù/Panna cotta/Cheesecake.</p>
-                <div class="progress">
-                    <div class="bar" style="width: {{ $progress }}%"></div>
-                </div>
-                <p class="muted small">Total gastat: {{ number_format($gastat,2,',','.') }}€ · Progrés: {{ $progress }}%</p>
-                <a class="cta ghost" href="{{ route('client.loyalty') }}" target="_blank" rel="noopener">Detall de punts</a>
-            </div>
-        </div>
 
-        @if($ultimaComanda)
-            <div class="card" style="max-width:1100px;margin:18px auto 0;">
-                <h3>Última comanda #{{ $ultimaComanda->id }} ({{ $ultimaComanda->estado }})</h3>
-                <ul class="menu-list">
-                    @foreach($ultimaComanda->detalles as $d)
-                        <li>
-                            <div class="menu-line">
-                                <span class="menu-item">{{ $d->producto->nombre }} × {{ $d->cantidad }}</span>
-                                <span class="dots"></span>
-                                <span class="price">{{ number_format($d->subtotal,2,',','.') }}€</span>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-                <p><strong>Total:</strong> {{ number_format($ultimaComanda->total,2,',','.') }}€</p>
-            </div>
-        @endif
-    </section>
+{{-- ======= DETALL DE PUNTS (integrat abaix del dashboard) ======= --}}
+<div class="section-head" style="margin-top:28px;">
+<h2 class="script">@lang('Punts i recompenses')</h2>
+<p class="muted">@lang('Tiramisù, Panna cotta o Cheesecake')</p>
+</div>
+
+
+<div class="card" style="max-width:900px;margin:0 auto;">
+<p>@lang('Total punts:') <strong>{{ number_format($gastat,2,',','.') }}</strong></p>
+<div class="progress">
+<div class="bar" style="width: {{ $progress }}%"></div>
+</div>
+<p class="muted small">{{ __('Progrés actual: :progress% cap a la propera recompensa.', ['progress' => $progress]) }}</p>
+</div>
+{{-- =============================================================== --}}
+</section>
 </x-app-layout>
