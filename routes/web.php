@@ -94,7 +94,7 @@ Route::get('/lang/{idioma}', [LocalizationController::class, 'index'])
 Route::get('/lang/{locale}', function (string $locale) {
 $available = ['ca','es'];
 if (in_array($locale, $available, true)) {
-session(['idioma' => $locale]);
+session(['Idioma' => $locale]);
 }
 return back();
 })->name('lang.switch');

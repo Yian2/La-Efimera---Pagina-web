@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        App::setLocale(session('locale', config('app.locale', 'ca')));
+        //App::setLocale(session('locale', config('app.locale', 'ca')));
     }
 }

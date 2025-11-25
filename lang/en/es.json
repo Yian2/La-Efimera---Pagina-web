@@ -1,56 +1,83 @@
-
 {
+  "Inici": "Inicio",
+  "pizzeria creativa": "pizzería creativa",
+  "Pizzeria creativa": "Pizzería creativa",
   "Carta": "Carta",
   "Take Away": "Para llevar",
   "Contacte": "Contacto",
   "Accés": "Acceso",
-  "Català": "Catalán",
-  "Español": "Español",
-  "Anglès": "Inglés",
-  "Francès": "Francés",
 
+  "Pizzes artesanes · Obra d'autor": "Pizzas artesanas · Obra de autor",
   "Pizzes artesanes · Obra d’autor": "Pizzas artesanas · Obra de autor",
+  "Ingredients frescos, massa amb fermentació lenta i un toc artístic. Vine al nostre obrador o demana per emportar.": "Ingredientes frescos, masa de fermentación lenta y un toque artístico. Ven a nuestro obrador o pide para llevar.",
   "Veure la carta": "Ver la carta",
+
   "La nostra carta": "Nuestra carta",
   "Base de tomàquet o mozzarella, opcions gourmet, focaccies i més.": "Base de tomate o mozzarella, opciones gourmet, focaccias y más.",
+
+  "Les Vermelles": "Las Rojas",
+  "(base de tomàquet + mozzarella)": "(base de tomate + mozzarella)",
+  "Les Blanques": "Las Blancas",
+  "(base de mozzarella)": "(base de mozzarella)",
+  "Suplements": "Suplementos",
+  "Les Gourmets": "Las Gourmet",
+  "Calzones": "Calzones",
+  "Focaccies": "Focaccias",
+  "Lasanya": "Lasaña",
+  "Amanides": "Ensaladas",
+  "Pica Pica": "Pica Pica",
+  "Postres": "Postres",
+  "Cafès": "Cafés",
+  "Infusions": "Infusiones",
+  "Begudes": "Bebidas",
+  "Vins": "Vinos",
+
+  "Avisa’ns d’al·lèrgies o intoleràncies. Productes locals i tots els formatges són pasturitzats": "Avísanos de alergias o intolerancias. Productos locales y todos los quesos son pasteurizados",
+
+  "Fes la comanda per telèfon i recull-la al nostre obrador.": "Haz el pedido por teléfono y recógelo en nuestro obrador.",
+  "Horari del forn": "Horario del horno",
+  "De :d1 18:30–22:30 · i :d2 13:00-22:30": "De :d1 18:30–22:30 · y :d2 13:00-22:30",
+  "dimecres a divendres": "miércoles a viernes",
+  "diumenge": "domingo",
+  "Telèfon": "Teléfono",
+  "Adreça": "Dirección",
+  "Carretera del Montseny, 34 · 08461 Sant Esteve de Palautordera": "Carretera del Montseny, 34 · 08461 Sant Esteve de Palautordera",
+
+  "Contacte": "Contacto",
+  "Reserves, esdeveniments i música en viu. Escriu-nos!": "Reservas, eventos y música en vivo. ¡Escríbenos!",
+  "Nom": "Nombre",
+  "Correu": "Correo",
+  "Missatge": "Mensaje",
+  "El JS el posaràs tu": "Ya pondrás el JS",
+  "Enviar": "Enviar",
+  "(* El botó queda deshabilitat, afegeix JS per gestionar l’enviament.)": "(* El botón queda deshabilitado, añade JS para gestionar el envío.)",
+  "On som": "Dónde estamos",
+  "Obrir al Maps": "Abrir en Maps",
+
+  "All you knead is love.": "All you knead is love.",
 
   "El meu espai": "Mi espacio",
   "Hola, :name. Gestiona les teves comandes i avantatges.": "Hola, :name. Gestiona tus pedidos y ventajas.",
   "Tancar sessió": "Cerrar sesión",
-
   "Demanar per emportar": "Pedir para llevar",
-  "Fes la teva comanda i vine a recollir-la.": "Haz tu pedido y ven a recogerlo.",
   "Inicia la comanda": "Iniciar pedido",
-
   "Historial de comandes": "Historial de pedidos",
   "Revisa què vas demanar i repeteix fàcilment.": "Revisa lo que pediste y repite fácilmente.",
   "Veure historial": "Ver historial",
-
   "Estat de la meva comanda": "Estado de mi pedido",
   "Segueix la preparació i l’estat d’entrega.": "Sigue la preparación y el estado de entrega.",
   "Veure estat": "Ver estado",
-
   "Última comanda": "Último pedido",
   "Total": "Total",
-
-  "Punts i recompenses": "Puntos y recompensas",
-  "Tiramisù, Panna cotta o Cheesecake": "Tiramisú, Panna cotta o Cheesecake",
-  "Total punts": "Puntos totales",
-  "Progrés actual: :percent% cap a la propera recompensa.": "Progreso actual: :percent% hacia la próxima recompensa.",
-
   "Encara no tens comandes.": "Aún no tienes pedidos.",
   "Estat de la comanda": "Estado del pedido",
   "Segueix en temps real quan la teva comanda estigui llesta.": "Sigue en tiempo real cuando tu pedido esté listo.",
+
+  "Total punts:": "Puntos totales:",
+  "Progrés actual: :progress% cap a la propera recompensa.": "Progreso actual: :progress% hacia la próxima recompensa.",
 
   "pendiente": "pendiente",
   "preparando": "preparando",
   "listo": "listo",
   "entregado": "entregado"
-
-
-  
-
-  
-  
-
 }
