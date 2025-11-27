@@ -5,6 +5,7 @@ use App\Http\Controllers\ClientComptController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Producto;
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\TakeawayController;
 
 
 /*
@@ -76,7 +77,6 @@ Route::middleware('auth')->prefix('client')->name('client.')->group(function () 
     Route::get('/', [ClientComptController::class, 'index'])->name('dashboard');     // Panell
     Route::get('/orders', [ClientComptController::class, 'orders'])->name('orders'); // Historial
     Route::get('/track', [ClientComptController::class, 'track'])->name('track');    // Estat comanda
-    Route::get('/loyalty', [ClientComptController::class, 'loyalty'])->name('loyalty'); // Punts
 });
 
 
@@ -84,20 +84,19 @@ Route::middleware('auth')->prefix('client')->name('client.')->group(function () 
 
 //rutes canvi idiomes
 
-/*
 Route::get('/lang/{idioma}', [LocalizationController::class, 'index'])
     ->whereIn('idioma', ['ca','es','en','fr'])
-    ->name('lang.switch');*/
+    ->name('lang.switch');
 
 
+//ruta take away
 
-Route::get('/lang/{locale}', function (string $locale) {
-$available = ['ca','es'];
-if (in_array($locale, $available, true)) {
-session(['Idioma' => $locale]);
-}
-return back();
-})->name('lang.switch');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/takeaway', [TakeawayController::class, 'create'])->name('takeaway.create');
+    Route::post('/takeaway', [TakeawayController::class, 'store'])->name('takeaway.store');
+    Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])->name('takeaway.success');
+});
 
 
 require __DIR__.'/auth.php';

@@ -15,7 +15,7 @@
 
             <nav class="nav">
                 <a href="#carta">@lang('Carta')</a>
-                <a href="#takeaway">@lang('Take Away')</a>
+                <a href="{{ route('takeaway.create') }}">@lang('Take Away')</a>
                 <a href="#contacte">@lang('Contacte')</a>
                 <a href="{{ route('acces') }}" target="_blank" rel="noopener">@lang('Accés')</a>
 
@@ -28,7 +28,10 @@
                     <div class="lang-menu">
                         <a href="{{ route('lang.switch','ca') }}">Català</a>
                         <a href="{{ route('lang.switch','es') }}">Español</a>
+                        <a href="{{ route('lang.switch','en') }}">English</a>
+                        <a href="{{ route('lang.switch','fr') }}">Français</a>
                     </div>
+
                 </div>
             </nav>
         </div>
@@ -136,7 +139,7 @@
     <section id="takeaway" class="section alt">
         <div class="section-head">
             <h2 class="script">@lang('Take Away')</h2>
-            <p>@lang('Fes la comanda per telèfon i recull-la al nostre obrador.')</p>
+            <p>@lang('Fes la comanda per telèfon o per la web i recull-la al nostre obrador.')</p>
         </div>
         <div class="card-grid">
             <div class="card">

@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cookie;
 
 class LocalizationController extends Controller
 {
     public function index(string $idioma): RedirectResponse
     {
-        // Guarda l'idioma a la sessió i aplica'l a la petició actual
         App::setLocale($idioma);
         session()->put('idioma', $idioma);
+
+        // Desa cookie per sobreviure a canvis de sessió
+        Cookie::queue(cookie('idioma', $idioma, 60 * 24 * 365)); // 1 any
 
         return redirect()->back();
     }

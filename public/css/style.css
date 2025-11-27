@@ -401,3 +401,6 @@ html, body { overflow-x: hidden; }
 /* Mostra el menú al hover o focus (accessibilitat sense JS) */
 .lang-dropdown:hover .lang-menu,
 .lang-dropdown:focus-within .lang-menu{ display: block; }
+
+
+

@@ -4,7 +4,6 @@
   "Pizzeria creativa": "Pizzería creativa",
   "Carta": "Carta",
   "Take Away": "Para llevar",
-  "Contacte": "Contacto",
   "Accés": "Acceso",
 
   "Pizzes artesanes · Obra d'autor": "Pizzas artesanas · Obra de autor",
@@ -79,5 +78,12 @@
   "pendiente": "pendiente",
   "preparando": "preparando",
   "listo": "listo",
-  "entregado": "entregado"
+  "entregado": "entregado",
+
+  "Entra amb el teu correu i contrasenya.": "Entra con tu correo y contraseña.",
+  "Contrasenya": "Contraseña",
+  "Recorda’m": "Recuérdame",
+  "Entrar": "Entrar",
+  "Has oblidat la contrasenya?": "¿Has olvidado la contraseña?",
+  "Tornar a l’inici": "Volver al inicio"
 }
