@@ -13,9 +13,16 @@ class DetallePedido extends Model
     protected $table = 'detalles_pedido';
 
     protected $fillable = [
-        'pedido_id','producto_id','cantidad',
-        'precio_unitario','subtotal','fecha_creacion','fecha_actualizacion'
+        'pedido_id',
+        'producto_id',
+        'cantidad',
+        'precio_unitario',
+        'subtotal',
+        'nota',            
+        'fecha_creacion',
+        'fecha_actualizacion',
     ];
+
 
     protected $casts = [
         'cantidad'            => 'integer',

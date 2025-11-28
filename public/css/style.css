@@ -403,4 +403,17 @@ html, body { overflow-x: hidden; }
 .lang-dropdown:focus-within .lang-menu{ display: block; }
 
 
+/* Inputs del login/registre */
+.auth-card .auth-input {
+    background: #f8f4ec !important;  /* fons clar tipus paper */
+    color: #111111 !important;       /* text ben fosc */
+    border: 1px solid #232733;
+    padding: 10px 12px;
+    border-radius: 12px;
+    width: 100%;
+    caret-color: #111111;
+}
 
+.auth-card .auth-input::placeholder {
+    color: #777777;
+}

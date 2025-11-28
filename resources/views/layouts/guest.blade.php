@@ -6,25 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- Títol fix per a les pàgines de convidat (login / registre) --}}
+    <title>La Efímera · Pizzeria creativa</title>
 
+    {{-- Vite (si el fas servir) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- 👇 Fonts + el teu CSS global --}}
+    {{-- Fonts + CSS global de la web --}}
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Quicksand:wght@400;600&family=Yellowtail&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    {{-- Favicon amb el logo de La Efímera --}}
+    {{-- Posa el teu fitxer a public/img/laefimera-favicon.png (o canvia el nom aquí) --}}
+    <link rel="icon" type="image/png" href="{{ asset('img/logo.png') }}">
 </head>
 <body class="font-sans antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-        <div>
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current" />
-            </a>
-        </div>
-
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white/5 shadow-md overflow-hidden sm:rounded-lg">
-            {{ $slot }}
-        </div>
+    {{-- Fons general estil La Efímera; el contingut concret el pinta cada vista (login/register) --}}
+    <div class="min-h-screen" style="background: radial-gradient(circle at top, #1b1f2a 0, #05060b 45%, #05060b 100%); color:#f8f4ec;">
+        {{ $slot }}
     </div>
 </body>
 </html>

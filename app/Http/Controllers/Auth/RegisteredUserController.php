@@ -4,45 +4,48 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
     /**
-     * Show the registration view.
+     * Display the registration view.
      */
-    public function create()
+    public function create(): View
     {
         return view('auth.register');
     }
 
     /**
      * Handle an incoming registration request.
+     *
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'nombre'  => ['required', 'string', 'max:255'],  // 👈 abans 'name'
+            'email'   => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password'=> ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            // Si més endavant tens camp 'role', aquí li podem posar 'client' per defecte.
+            'nombre'  => $request->nombre,                   // 👈 abans 'name'
+            'email'   => $request->email,
+            'password'=> Hash::make($request->password),
+            // 'rol' => 'cliente', // si vols posar rol per defecte més endavant
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->route('home');
     }
 }

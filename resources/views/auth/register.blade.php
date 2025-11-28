@@ -34,8 +34,9 @@
 
                     <label>
                         <span>@lang('Nom')</span>
-                        <input type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" />
+                        <input type="text" name="nombre" value="{{ old('nombre') }}" required autofocus autocomplete="name" />
                     </label>
+
 
                     <label>
                         <span>@lang('Correu')</span>
