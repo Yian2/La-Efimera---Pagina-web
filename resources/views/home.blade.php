@@ -19,7 +19,7 @@
                 <a href="#contacte">@lang('Contacte')</a>
                 <a href="{{ route('acces') }}" target="_blank" rel="noopener">@lang('Accés')</a>
 
-                {{-- ▼ Desplegable d'idioma --}}
+                {{--  Desplegable d'idioma --}}
                 <div class="lang-dropdown">
                     <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
                         {{ strtoupper(app()->getLocale()) }}
@@ -31,7 +31,6 @@
                         <a href="{{ route('lang.switch','en') }}">English</a>
                         <a href="{{ route('lang.switch','fr') }}">Français</a>
                     </div>
-
                 </div>
             </nav>
         </div>
@@ -78,7 +77,6 @@
                 ];
 
                 $duesColumnes = ['pizza_vermella','pizza_blanca','pizza_gourmet','amanida','pica_pica','postre','beguda','infusio','vi'];
-                $loc = app()->getLocale();
             @endphp
 
             @foreach ($orden as $tipus)
@@ -96,11 +94,8 @@
                         @if(in_array($tipus, ['cafe','infusio'], true))
                             <ul class="menu-list simple {{ $classeCols }}">
                                 @foreach($productos[$tipus] as $p)
-                                    @php
-                                        $n = $p->{'nombre_'.$loc} ?? $p->nombre;
-                                    @endphp
                                     <li>
-                                        <span>{{ $n }}</span>
+                                        <span>{{ __($p->nombre) }}</span>
                                         <span class="price">{{ number_format($p->precio, 2, ',', '') }}€</span>
                                     </li>
                                 @endforeach
@@ -108,18 +103,14 @@
                         @else
                             <ul class="menu-list {{ $classeCols }}">
                                 @foreach($productos[$tipus] as $p)
-                                    @php
-                                        $n = $p->{'nombre_'.$loc} ?? $p->nombre;
-                                        $d = $p->{'descripcion_'.$loc} ?? $p->descripcion;
-                                    @endphp
                                     <li>
                                         <div class="menu-line">
-                                            <span class="menu-item">{{ $n }}</span>
+                                            <span class="menu-item">{{ __($p->nombre) }}</span>
                                             <span class="dots"></span>
                                             <span class="price">{{ number_format($p->precio, 2, ',', '') }}€</span>
                                         </div>
-                                        @if($d)
-                                            <p class="desc">{{ $d }}</p>
+                                        @if($p->descripcion)
+                                            <p class="desc">{{ __($p->descripcion) }}</p>
                                         @endif
                                     </li>
                                 @endforeach

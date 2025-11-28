@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Producto;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\TakeawayController;
+use App\Http\Controllers\HomeController;
 
 
 /*
@@ -14,35 +15,9 @@ use App\Http\Controllers\TakeawayController;
 |--------------------------------------------------------------------------
 */
 
-// HOME (única definició)
-Route::get('/', function () {
-    // Productes actius agrupats per tipus
-    $productos = Producto::where('activo', true)
-        ->orderBy('tipo')
-        ->orderBy('nombre')
-        ->get()
-        ->groupBy('tipo');
+// HOME 
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    // Etiquetes boniques per a cada categoria
-    $labels = [
-        'pizza_vermella' => ['Les Vermelles', '(base de tomàquet + mozzarella)'],
-        'pizza_blanca'   => ['Les Blanques', '(base de mozzarella)'],
-        'pizza_gourmet'  => ['Les Gourmets', ''],
-        'focaccia'       => ['Focaccies', ''],
-        'lasanya'        => ['Lasanya', ''],
-        'calzone'        => ['Calzones', ''],
-        'suplement'      => ['Suplements', ''],
-        'amanida'        => ['Amanides', ''],
-        'pica_pica'      => ['Pica pica', ''],
-        'postre'         => ['Postres', ''],
-        'cafe'           => ['Cafès', ''],
-        'infusio'        => ['Infusions', ''],
-        'beguda'         => ['Begudes', ''],
-        'vi'             => ['Vins', ''],
-    ];
-
-    return view('home', compact('productos','labels'));
-})->name('home');
 
 // Botó “Accés” (obre login o porta al panell si ja ha fet login)
 Route::get('/acces', function () {
@@ -52,11 +27,7 @@ Route::get('/acces', function () {
 })->name('acces');
 
 
-/*
-|--------------------------------------------------------------------------
-| Rutes que vénen amb Breeze
-|--------------------------------------------------------------------------
-*/
+
 Route::get('/dashboard', function () {
     return redirect()->route('client.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -67,12 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//Àrea client (logat)
 
-/*
-|--------------------------------------------------------------------------
-| Àrea client (logat)
-|--------------------------------------------------------------------------
-*/
 Route::middleware('auth')->prefix('client')->name('client.')->group(function () {
     Route::get('/', [ClientComptController::class, 'index'])->name('dashboard');     // Panell
     Route::get('/orders', [ClientComptController::class, 'orders'])->name('orders'); // Historial

@@ -30,6 +30,8 @@
                 <form method="POST" action="{{ route('login') }}" novalidate>
                     @csrf
 
+                    <input type="hidden" name="lang" value="{{ app()->getLocale() }}">
+
                     <label>
                         <span>@lang('Correu')</span>
                         <input type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" />
@@ -52,11 +54,21 @@
                             <a class="cta ghost" href="{{ route('password.request') }}">
                                 @lang('Has oblidat la contrasenya?')
                             </a>
-                        @endif>
+                        @endif
 
                         <a class="cta ghost" href="{{ route('home') }}">
                             @lang('Tornar a l’inici')
                         </a>
+
+                        {{-- ENLLAÇ AL REGISTRE --}}
+                        @if (Route::has('register'))
+                            <p class="muted" style="margin-top: 12px; text-align:center;">
+                                @lang('No tens compte?')
+                                <a href="{{ route('register') }}" class="link">
+                                    @lang('Crea un compte')
+                                </a>
+                            </p>
+                        @endif
                     </div>
                 </form>
             </div>

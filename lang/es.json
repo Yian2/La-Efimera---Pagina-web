@@ -70,7 +70,7 @@
   "Total": "Total",
   "Encara no tens comandes.": "Aún no tienes pedidos.",
   "Estat de la comanda": "Estado del pedido",
-  "Segueix en temps real quan la teva comanda estigui llesta.": "Sigue en tiempo real cuando tu pedido esté listo.",
+  "Segueix en temps real quan la teva comanda estigui llesta.": "Sigue en temps real quan la teva comanda estigui llesta.",
 
   "Total punts:": "Puntos totales:",
   "Progrés actual: :progress% cap a la propera recompensa.": "Progreso actual: :progress% hacia la próxima recompensa.",
@@ -85,5 +85,75 @@
   "Recorda’m": "Recuérdame",
   "Entrar": "Entrar",
   "Has oblidat la contrasenya?": "¿Has olvidado la contraseña?",
-  "Tornar a l’inici": "Volver al inicio"
+  "Tornar a l’inici": "Volver al inicio",
+
+
+  "Varietat d’empanades argentines (pregunteu què tenim)": "Variedad de empanadas argentinas (pregunta qué tenemos)",
+"Taleggio al forn amb melmelada de ceba i pa de focaccia": "Taleggio al horno con mermelada de cebolla y pan de focaccia",
+"Paté de cigrons amb tahin i llimona, amb pa de focaccia": "Paté de garbanzos con tahini y limón, con pan de focaccia",
+"Olives verdes i negres": "Aceitunas verdes y negras",
+"Patates xips": "Patatas chips",
+"3 dips: hummus, guacamole i tzatziki amb pa de focaccia": "3 salsas: hummus, guacamole y tzatziki con pan de focaccia",
+
+"Fulles de ruca i canonges, burrata, olives, pipes i oli de pesto": "Hojas de rúcula y canónigos, burrata, aceitunas, semillas y aceite de pesto",
+"Tomàquet fresc, mozzarella de búfala, alfàbrega, pesto": "Tomate fresco, mozzarella de búfala, albahaca, pesto",
+"Fulles variades, alvocat, maduixes, ceba, olives, pipes, vinagreta de coriandre i llima": "Hojas variadas, aguacate, fresas, cebolla, aceitunas, semillas, vinagreta de cilantro y lima",
+"Fulles variades, salmó, alvocat, ceba, olives, pipes, salses de soja i llima": "Hojas variadas, salmón, aguacate, cebolla, aceitunas, semillas, salsas de soja y lima",
+"Fulles variades, formatge de cabra, moniato, ceba, olives, pipes, vinagreta de coriandre i llima": "Hojas variadas, queso de cabra, boniato, cebolla, aceitunas, semillas, vinagreta de cilantro y lima",
+
+"Verdures rostides, formatge de cabra, olives": "Verduras asadas, queso de cabra, aceitunas",
+"Formatge de cabra, ruca, tomàquet fresc, olives": "Queso de cabra, rúcula, tomate fresco, aceitunas",
+"Pernil dolç, carxofes, xampinyons, olives": "Jamón dulce, alcachofas, champiñones, aceitunas",
+"Bacó, ou, parmesà, pebre": "Bacon, huevo, parmesano, pimienta",
+"Ceba, salami picant i xili xipotle": "Cebolla, salami picante y chile chipotle",
+"Fulles verdes, encenalls de parmesà": "Hojas verdes, lascas de parmesano",
+"Gorgonzola, pernil serrà, olives": "Gorgonzola, jamón serrano, aceitunas",
+"Tomàquet, mozzarella, alfàbrega": "Tomate, mozzarella, albahaca",
+"Ceba, pebrot escalivat, sobrassada, olives": "Cebolla, pimiento escalivado, sobrasada, aceitunas",
+"Albergínia rostida, parmesà": "Berenjena asada, parmesano",
+"Sense mozza, verdures rostides, xampinyons, ceba": "Sin mozzarella, verduras asadas, champiñones, cebolla",
+"Burrata, tomàquet rostit, farigola, pesto, olives": "Burrata, tomate asado, tomillo, pesto, aceitunas",
+"Tomàquet, mozzarella, pernil dolç": "Tomate, mozzarella, jamón dulce",
+"Tomàquet, mozzarella, pernil dolç, xampinyons": "Tomate, mozzarella, jamón dulce, champiñones",
+
+"Gorgonzola, taleggio, pecorino, escalunyes, sàlvia": "Gorgonzola, Taleggio, Pecorino, escalonias, salvia",
+"Ceba, tàperes, anxoves, olives": "Cebolla, alcaparras, anchoas, aceitunas",
+"Gorgonzola, ceba, olives negres": "Gorgonzola, cebolla, aceitunas negras",
+"Ricotta, pesto, ruca, tomàquet fresc, parmesà": "Ricotta, pesto, rúcula, tomate fresco, parmesano",
+"Tonyina, ceba, tàperes, olives": "Atún, cebolla, alcaparras, aceitunas",
+
+"Tomàquet, mozza, albergínia rostida, tomàquet sec, parmesà, pipes, mel": "Tomate, mozzarella, berenjena asada, tomate seco, parmesano, semillas, miel",
+"Tomàquet, mozza, botifarra, formatge de cabra, pebrot i ceba caramel·litzada": "Tomate, mozzarella, butifarra, queso de cabra, pimiento y cebolla caramelizada",
+"Salsa de tòfona, mozza, carbassó rostit, xampinyó fresc, ou, parmesà": "Salsa de trufa, mozzarella, calabacín asado, champiñón fresco, huevo, parmesano",
+"Tomàquet, mozzarella, pernil serrà, scamorza, parmesà, ruca": "Tomate, mozzarella, jamón serrano, Scamorza, parmesano, rúcula",
+"Mozza, salmó fumat, ricotta, ceba, tàperes, ruca, mojo verd": "Mozzarella, salmón ahumado, ricotta, cebolla, alcaparras, rúcula, mojo verde",
+
+"Mozzarella, ricotta, tomàquet sec, pesto": "Mozzarella, ricotta, tomate seco, pesto",
+"Mozzarella, pernil dolç, scamorza, ou": "Mozzarella, jamón dulce, Scamorza, huevo",
+
+"Taleggio, bacon, ceba caramel·litzada, ruca": "Taleggio, bacon, cebolla caramelizada, rúcula",
+"Mozza, tomàquet fresc, all i anxoves": "Mozzarella, tomate fresco, ajo y anchoas",
+
+"Salsa de tomàquet, beixamel de porro, xampinyó, carbassó, pastanaga, formatge de cabra i parmesà": "Salsa de tomate, bechamel de puerro, champiñón, calabacín, zanahoria, queso de cabra y parmesano",
+
+"Brownie amb gelat": "Brownie con helado",
+"Gelat sense gluten, 1 bola": "Helado sin gluten, 1 bola",
+"Gelat sense gluten, 2 boles": "Helado sin gluten, 2 bolas",
+"Panna cotta amb salsa": "Panna cotta con salsa",
+"Pastís de pastanaga casolà": "Pastel de zanahoria casero",
+"Pizza dolça amb Nutella i maduixa": "Pizza dulce con Nutella y fresa",
+"Tiramisú casolà": "Tiramisú casero",
+
+"Afegir embotits i formatges": "Añadir embutidos y quesos",
+"Pa de focaccia extra": "Pan de focaccia extra",
+"Afegir salmó": "Añadir salmón",
+"Base de pizza sense gluten": "Base de pizza sin gluten",
+"Afegir verdures": "Añadir verduras",
+"Afegir xili xipotle": "Añadir chile chipotle",
+
+"Cervesa 1906": "Cerveza 1906",
+"Aigua 1L aprox": "Agua 1L aprox",
+"Aigua 0,5L aprox": "Agua 0,5L aprox",
+"Cerveses artesanes": "Cervezas artesanas"
+
 }

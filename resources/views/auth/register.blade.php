@@ -1,52 +1,70 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    <section class="section">
+        <div class="section-head" style="margin-bottom: 16px;">
+            <h2 class="script">@lang('Crea un compte')</h2>
+            <p class="muted">@lang('Registra’t per guardar i seguir les teves comandes.')</p>
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="auth-wrap">
+            <div class="auth-card">
+                {{-- LOGO/BRAND --}}
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                    <div>
+                        <div class="brand-script" style="font-size:22px; line-height:1;">La Efímera</div>
+                        <div class="brand-sub" style="transform:none;">@lang('pizzeria creativa')</div>
+                    </div>
+                </div>
+
+                {{-- ERRORS VALIDACIÓ --}}
+                @if ($errors->any())
+                    <div class="auth-errors">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                {{-- FORMULARI REGISTRE --}}
+                <form method="POST" action="{{ route('register') }}" novalidate>
+                    @csrf
+
+                    <input type="hidden" name="lang" value="{{ app()->getLocale() }}">
+
+                    <label>
+                        <span>@lang('Nom')</span>
+                        <input type="text" name="name" value="{{ old('name') }}" required autofocus autocomplete="name" />
+                    </label>
+
+                    <label>
+                        <span>@lang('Correu')</span>
+                        <input type="email" name="email" value="{{ old('email') }}" required autocomplete="email" />
+                    </label>
+
+                    <label>
+                        <span>@lang('Contrasenya')</span>
+                        <input type="password" name="password" required autocomplete="new-password" />
+                    </label>
+
+                    <label>
+                        <span>@lang('Confirmar contrasenya')</span>
+                        <input type="password" name="password_confirmation" required autocomplete="new-password" />
+                    </label>
+
+                    <div class="auth-actions">
+                        <button class="cta" type="submit">@lang('Registra’t')</button>
+
+                        <a class="cta ghost" href="{{ route('login') }}">
+                            @lang('Ja tens compte? Inicia sessió')
+                        </a>
+
+                        <a class="cta ghost" href="{{ route('home') }}">
+                            @lang('Tornar a l’inici')
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </section>
 </x-guest-layout>
