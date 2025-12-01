@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class TakeawayController extends Controller
 {
+    // PAS 0: formulari de Take Away
     public function create()
     {
         $productos = Producto::where('activo', true)
@@ -26,22 +27,22 @@ class TakeawayController extends Controller
         return view('takeaway.create', compact('productos', 'timeSlots'));
     }
 
-    public function store(Request $request)
+    /**
+     * PAS 1: Validar formulari i mostrar el RESUM (NO guarda a la BBDD).
+     */
+    public function review(Request $request)
     {
-        // Validació bàsica
         $validated = $request->validate([
-            'pickup_time' => ['required', 'string'],
-            'lines'       => ['required', 'array'],
-            'lines.*.producto_id' => ['nullable', 'integer', 'exists:productos,id'],
-            'lines.*.cantidad'    => ['nullable', 'integer', 'min:1', 'max:20'],
-            'lines.*.nota'        => ['nullable', 'string', 'max:255'], // 👈 nota per producte (opcional)
+            'pickup_time' => ['required','string'],
+            'lines'       => ['required','array'],
+            'lines.*.producto_id' => ['nullable','integer','exists:productos,id'],
+            'lines.*.cantidad'    => ['nullable','integer','min:1','max:20'],
+            'lines.*.nota'        => ['nullable','string','max:255'],
         ]);
 
-        $userId = auth()->id();
-
-        // Línies vàlides (producte + quantitat)
+        // Línies vàlides
         $lines = collect($validated['lines'])
-            ->filter(fn ($l) => !empty($l['producto_id']) && !empty($l['cantidad']))
+            ->filter(fn($l) => !empty($l['producto_id']) && !empty($l['cantidad']))
             ->values();
 
         if ($lines->isEmpty()) {
@@ -50,14 +51,73 @@ class TakeawayController extends Controller
                 ->withInput();
         }
 
+        // Muntem el “carret” per al resum
+        $detalls = [];
+        $total = 0;
+
+        foreach ($lines as $line) {
+            $producto = Producto::find($line['producto_id']);
+            if (!$producto) {
+                continue;
+            }
+
+            $cantidad  = (int) $line['cantidad'];
+            $preuUnit  = (float) $producto->precio;
+            $subtotal  = $cantidad * $preuUnit;
+            $nota      = $line['nota'] ?? null;
+
+            $total += $subtotal;
+
+            $detalls[] = [
+                'producto_id'   => $producto->id,
+                'nombre'        => $producto->nombre,
+                'cantidad'      => $cantidad,
+                'precio_unit'   => $preuUnit,
+                'subtotal'      => $subtotal,
+                'nota'          => $nota,
+            ];
+        }
+
+        return view('takeaway.review', [
+            'pickupTime' => $validated['pickup_time'],
+            'detalls'    => $detalls,
+            'total'      => $total,
+        ]);
+    }
+
+    /**
+     * PAS 2: Confirmar i guardar a la base de dades.
+     */
+    public function store(Request $request)
+    {
+        // Tornem a validar (per seguretat)
+        $validated = $request->validate([
+            'pickup_time' => ['required','string'],
+            'lines'       => ['required','array'],
+            'lines.*.producto_id' => ['required','integer','exists:productos,id'],
+            'lines.*.cantidad'    => ['required','integer','min:1','max:20'],
+            'lines.*.nota'        => ['nullable','string','max:255'],
+        ]);
+
+        $userId = auth()->id();
+
+        $lines = collect($validated['lines'])
+            ->filter(fn($l) => !empty($l['producto_id']) && !empty($l['cantidad']))
+            ->values();
+
+        if ($lines->isEmpty()) {
+            return redirect()->route('takeaway.create')
+                ->withErrors(['lines' => __('Afegeix com a mínim un producte.')]);
+        }
+
         $pedido = DB::transaction(function () use ($userId, $validated, $lines) {
             $pedido = Pedido::create([
                 'user_id'        => $userId,
                 'estado'         => 'pendiente',
-                'es_para_llevar' => true,     // ← Take Away = true
+                'es_para_llevar' => true,
                 'total'          => 0,
                 'fecha_creacion' => now(),
-                // si més endavant tens una columna per l'hora de recollida, aquí la pots guardar
+                // si tens un camp per a l’hora de recollida:
                 // 'hora_recollida' => $validated['pickup_time'],
             ]);
 
@@ -65,7 +125,6 @@ class TakeawayController extends Controller
                 $producto = Producto::find($line['producto_id']);
                 $cantidad = (int) $line['cantidad'];
                 $precio   = (float) $producto->precio;
-                $nota     = $line['nota'] ?? null;   // 👈 nota d’aquesta línia
 
                 DetallePedido::create([
                     'pedido_id'          => $pedido->id,
@@ -73,7 +132,7 @@ class TakeawayController extends Controller
                     'cantidad'           => $cantidad,
                     'precio_unitario'    => $precio,
                     'subtotal'           => $cantidad * $precio,
-                    'nota'               => $nota,    // 👈 es guarda a la BBDD
+                    'nota'               => $line['nota'] ?? null,
                     'fecha_creacion'     => now(),
                     'fecha_actualizacion'=> now(),
                 ]);
@@ -85,12 +144,17 @@ class TakeawayController extends Controller
             return $pedido;
         });
 
+        // PAS 3: anar a la pantalla de "Gràcies / Comanda confirmada"
         return redirect()->route('takeaway.success', $pedido);
     }
 
+    /**
+     * PAS 3: Pantalla final de comanda confirmada.
+     */
     public function success(Pedido $pedido)
     {
         $pedido->load('detalles.producto');
+
         return view('takeaway.success', compact('pedido'));
     }
 }

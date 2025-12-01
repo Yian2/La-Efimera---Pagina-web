@@ -22,7 +22,7 @@
                 <h3>@lang('Demanar per emportar')</h3>
                 <p>@lang('Fes la teva comanda i vine a recollir-la.')</p>
                 <a class="cta" href="{{ route('takeaway.create') }}">
-                    @lang('Inicia la comanda per')
+                    @lang('Inicia la comanda per emportar')
                 </a>
             </div>
 

@@ -58,12 +58,18 @@ Route::get('/lang/{idioma}', [LocalizationController::class, 'index'])
 
 //ruta take away
 
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
+    // Formulari
     Route::get('/takeaway', [TakeawayController::class, 'create'])->name('takeaway.create');
-    Route::post('/takeaway', [TakeawayController::class, 'store'])->name('takeaway.store');
+
+    // Pas 1: formulari → RESUM (NO guarda a BBDD)
+    Route::post('/takeaway/review', [TakeawayController::class, 'review'])->name('takeaway.review');
+
+    // Pas 2: RESUM → CONFIRMAR I GUARDAR
+    Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])->name('takeaway.store');
+
+    // Pas 3: Pantalla de gràcies / comanda confirmada
     Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])->name('takeaway.success');
 });
-
 
 require __DIR__.'/auth.php';
