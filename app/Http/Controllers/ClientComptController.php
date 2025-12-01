@@ -35,13 +35,15 @@ class ClientComptController extends Controller
 
     public function track()
     {
-        // Agafem l’última comanda d’aquest usuari
-        $order = \App\Models\Pedido::where('user_id', auth()->id())
-            ->latest('id')
-            ->first();
+        $orders = Pedido::with('detalles.producto')
+            ->where('user_id', auth()->id())
+            ->orderByDesc('id')
+            ->take(5) // últimes 5 comandes 
+            ->get();
 
-        return view('client.track', compact('order'));
+        return view('client.track', compact('orders'));
     }
+
 
     public function loyalty()
     {
