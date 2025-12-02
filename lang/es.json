@@ -154,6 +154,45 @@
 "Cervesa 1906": "Cerveza 1906",
 "Aigua 1L aprox": "Agua 1L aprox",
 "Aigua 0,5L aprox": "Agua 0,5L aprox",
-"Cerveses artesanes": "Cervezas artesanas"
+"Cerveses artesanes": "Cervezas artesanas",
+
+
+  "Pàgina no trobada": "Página no encontrada",
+  "Ups… aquesta adreça no existeix o ja no és disponible. Potser la pizza s’ha menjat la pàgina.": "Ups… esta dirección no existe o ya no está disponible. Puede que la pizza se haya comido la página.",
+  "Torna a l’inici o dona un cop d’ull a la carta i al Take Away.": "Vuelve al inicio o echa un vistazo a la carta y al Para llevar.",
+
+  "Comanda rebuda": "Pedido recibido",
+  "Hem rebut la teva comanda, la prepararem al més aviat possible.": "Hemos recibido tu pedido, lo prepararemos lo antes posible.",
+  "Detall de la comanda": "Detalle del pedido",
+  "Nota": "Nota",
+  "Fer una altra comanda": "Hacer otro pedido",
+
+  "Revisa la teva comanda": "Revisa tu pedido",
+  "Comprova els productes abans de confirmar.": "Comprueba los productos antes de confirmar.",
+  "Modificar comanda": "Modificar pedido",
+  "Confirmar comanda": "Confirmar pedido",
+
+  "Hora de recollida": "Hora de recogida",
+  "Fes la comanda per telèfon o per la web i recull-la al nostre obrador.": "Haz el pedido por teléfono o por la web y recógelo en nuestro obrador.",
+
+
+  
+  "Editar comanda": "Editar pedido",
+  "Comanda confirmada": "Pedido confirmado",
+  "Gràcies per fer la teva comanda. La prepararem al més aviat possible.": "Gracias por hacer tu pedido. Lo prepararemos lo antes posible.",
+  "Anar al meu espai": "Ir a mi espacio",
+  "Comanda": "Pedido",
+
+  "Productes": "Productos",
+  "Continuar": "Continuar",
+  "Fes la teva comanda i vine a recollir-la.": "Haz tu pedido y ven a recogerlo.",
+  "Inicia la comanda per emportar": "Iniciar pedido para llevar",
+  "Punts i recompenses": "Puntos y recompensas",
+  "Total punts: :value": "Puntos totales: :value",
+  "Progrés actual: :percent% cap a la propera recompensa.": "Progreso actual: :percent% hacia la próxima recompensa."
+
 
 }
+
+
+

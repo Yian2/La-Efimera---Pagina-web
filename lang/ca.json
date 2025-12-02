@@ -87,9 +87,38 @@
   "Has oblidat la contrasenya?": "Has oblidat la contrasenya?",
   "Tornar a l’inici": "Tornar a l’inici",
 
+  "Fes la comanda per telèfon o per la web i recull-la al nostre obrador.": "Fes la comanda per telèfon o per la web i recull-la al nostre obrador.",
+
   "Revisa la teva comanda": "Revisa la teva comanda",
   "Comprova els productes abans de confirmar.": "Comprova els productes abans de confirmar.",
-  "Modificar comanda": "Modificar comanda",
-  "Confirmar comanda": "Confirmar comanda"
+  "Editar comanda": "Editar comanda",
+  "Confirmar comanda": "Confirmar comanda",
+  "Comanda confirmada": "Comanda confirmada",
+  "Gràcies per fer la teva comanda. La prepararem al més aviat possible.": "Gràcies per fer la teva comanda. La prepararem al més aviat possible.",
+  "Detall de la comanda": "Detall de la comanda",
+  "Fer una altra comanda": "Fer una altra comanda",
+  "Anar al meu espai": "Anar al meu espai",
+  "Comanda": "Comanda",
+  "Nota": "Nota",
+  "Continuar": "Continuar",
 
+  
+  "Hora de recollida": "Hora de recollida",
+  "Selecciona una hora": "Selecciona una hora",
+  "Productes": "Productes",
+  "Producte": "Producte",
+  "(Opcional)": "(Opcional)",
+  "Quantitat": "Quantitat",
+  "Nota (opcional)": "Nota (opcional)",
+  "Sense olives, extra picant…": "Sense olives, extra picant…",
+  "Afegir producte": "Afegir producte",
+  "Fes la teva comanda i vine a recollir-la.": "Fes la teva comanda i vine a recollir-la.",
+  "Inicia la comanda per emportar": "Inicia la comanda per emportar",
+  "Punts i recompenses": "Punts i recompenses",
+  "Total punts: :value": "Total punts: :value",
+  "Progrés actual: :percent% cap a la propera recompensa.": "Progrés actual: :percent% cap a la propera recompensa."
+
+
+  
 }
+

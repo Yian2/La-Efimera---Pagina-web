@@ -147,11 +147,33 @@
   "Nota": "Remarque",
   "Fer una altra comanda": "Passer une autre commande",
 
+  
   "Revisa la teva comanda": "Vérifiez votre commande",
   "Comprova els productes abans de confirmar.": "Vérifiez les produits avant de confirmer.",
-  "Modificar comanda": "Modifier la commande",
+  "Editar comanda": "Modifier la commande",
   "Confirmar comanda": "Confirmer la commande",
+  "Comanda confirmada": "Commande confirmée",
+  "Gràcies per fer la teva comanda. La prepararem al més aviat possible.": "Merci pour votre commande. Nous la préparerons dès que possible.",
+  "Anar al meu espai": "Aller à mon espace",
+  "Comanda": "Commande",
+  "Productes": "Produits",
+  "Continuar": "Continuer",
+  "Fes la comanda per telèfon o per la web i recull-la al nostre obrador.": "Passez votre commande par téléphone ou sur le site et venez la récupérer à notre atelier.",
+  
+  "Hora de recollida": "Heure de retrait",
+  "Selecciona una hora": "Sélectionnez une heure",
+  "Producte": "Produit",
+  "(Opcional)": "(Optionnel)",
+  "Quantitat": "Quantité",
+  "Nota (opcional)": "Remarque (optionnelle)",
+  "Sense olives, extra picant…": "Sans olives, extra piquant…",
+  "Afegir producte": "Ajouter un produit",
+  "Inicia la comanda per emportar": "Commencer commande à emporter",
+   "Total punts: :value": "Points totaux : :value"
 
-  "Hora de recollida": "Heure de retrait"
+
 }
+
+
+
 

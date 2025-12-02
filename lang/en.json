@@ -183,17 +183,44 @@
 
   "Comanda rebuda": "Order received",
   "Hem rebut la teva comanda, la prepararem al més aviat possible.": "We’ve received your order, we’ll prepare it as soon as possible.",
-  "Detall de la comanda": "Order details",
-  "Nota": "Note",
-  "Fer una altra comanda": "Place another order",
 
+  
   "Revisa la teva comanda": "Review your order",
   "Comprova els productes abans de confirmar.": "Check the items before confirming.",
-  "Modificar comanda": "Modify order",
+  "Editar comanda": "Edit order",
   "Confirmar comanda": "Confirm order",
+  "Comanda confirmada": "Order confirmed",
+  "Gràcies per fer la teva comanda. La prepararem al més aviat possible.": "Thanks for your order. We will prepare it as soon as possible.",
+  "Detall de la comanda": "Order details",
+  "Fer una altra comanda": "Place another order",
+  "Anar al meu espai": "Go to my space",
+  "Comanda": "Order",
+  "Nota": "Note",
+  "Continuar": "Continue",
+  "Fes la comanda per telèfon o per la web i recull-la al nostre obrador.": "Place your order by phone or via the website and pick it up at our workshop.",
+  "Cancel·lar":"Cancel",
+  
+  "Hora de recollida": "Pickup time",
+  "Selecciona una hora": "Select a time",
+  "Productes": "Products",
+  "Producte": "Product",
+  "(Opcional)": "(Optional)",
+  "Quantitat": "Quantity",
+  "Nota (opcional)": "Note (optional)",
+  "Sense olives, extra picant…": "No olives, extra spicy…",
+  "Afegir producte": "Add product",
+   "Fes la teva comanda i vine a recollir-la.": "Place your order and come pick it up.",
+  "Inicia la comanda per emportar": "Start take-away order",
+  "Punts i recompenses": "Points and rewards",
+  "Total punts: :value": "Total points: :value",
+  "Progrés actual: :percent% cap a la propera recompensa.": "Current progress: :percent% toward the next reward."
 
-  "Hora de recollida": "Pickup time"
 }
+
+
+
+
+
 
 
 
