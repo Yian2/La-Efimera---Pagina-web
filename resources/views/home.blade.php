@@ -173,7 +173,7 @@
             <aside class="mapcard">
                 <h3>@lang('On som')</h3>
                 <p>@lang('Carretera del Montseny, 34')<br>08461 Sant Esteve de Palautordera</p>
-                <a class="cta ghost" target="_blank" rel="noopener" href="https://maps.google.com">@lang('Obrir al Maps')</a>
+                <a class="cta ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/place/La+Ef%C3%ADmera+-+Pizzer%C3%ADa+Bar+Obrador/@41.7035991,2.4353139,17z/data=!3m1!4b1!4m6!3m5!1s0x12a4cdbb7782ec9b:0x7c2ba1f695fb84c3!8m2!3d41.7035991!4d2.4353139!16s%2Fg%2F11fm9tfl9d?entry=ttu&g_ep=EgoyMDI1MTEyMy4xIKXMDSoASAFQAw%3D%3D">@lang('Obrir al Maps')</a>
             </aside>
         </div>
     </section>

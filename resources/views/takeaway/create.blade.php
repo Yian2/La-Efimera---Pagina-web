@@ -17,7 +17,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('takeaway.store') }}">
+            <form method="POST" action="{{ route('takeaway.review') }}">
                 @csrf
 
                 {{-- HORA DE RECOLLIDA --}}
@@ -101,7 +101,7 @@
                 </button>
 
                 <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
-                    <a href="{{ route('home') }}" class="cta ghost">@lang('Cancel·lar')</a>
+                    <a href="{{ route('client.dashboard') }}" class="cta ghost">@lang('Cancel·lar')</a>
                     <button type="submit" class="cta">@lang('Confirmar comanda')</button>
                 </div>
             </form>
