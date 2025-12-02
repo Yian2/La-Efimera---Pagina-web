@@ -1,5 +1,6 @@
 <x-app-layout>
     <section class="section">
+        {{-- Títol + subtítol --}}
         <div class="section-head">
             <h2 class="script">@lang('El meu espai')</h2>
             <p class="muted">
@@ -11,12 +12,22 @@
 
         {{-- Accions de pàgina (dreta) --}}
         <div class="page-actions">
+            {{-- Botó "Tornar a l’inici" --}}
+            <a href="{{ route('home') }}" class="cta ghost">
+                @lang('Tornar a l’inici')
+            </a>
+
+            {{-- Formulari de logout --}}
             <form method="POST" action="{{ route('logout') }}" class="logout-form">
                 @csrf
-                <button type="submit" class="cta ghost danger">@lang('Tancar sessió')</button>
+                <button type="submit" class="cta ghost danger">
+                    @lang('Tancar sessió')
+                </button>
             </form>
         </div>
 
+
+        {{-- Targetes principals --}}
         <div class="card-grid">
             <div class="card">
                 <h3>@lang('Demanar per emportar')</h3>
@@ -43,35 +54,63 @@
             </div>
         </div>
 
+        {{-- Última comanda --}}
         @if($ultimaComanda)
             <div class="card" style="max-width:1100px;margin:18px auto 0;">
-                <h3>@lang('Última comanda') #{{ $ultimaComanda->id }} ({{ $ultimaComanda->estado }})</h3>
-                <ul class="menu-list">
-                    @foreach($ultimaComanda->detalles as $d)
-                        <li>
-                            <div class="menu-line">
-                                <span class="menu-item">{{ $d->producto->nombre }} × {{ $d->cantidad }}</span>
-                                <span class="dots"></span>
-                                <span class="price">{{ number_format($d->subtotal,2,',','.') }}€</span>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-                <p><strong>@lang('Total'):</strong> {{ number_format($ultimaComanda->total,2,',','.') }}€</p>
+                <h3>
+                    @lang('Última comanda') #{{ $ultimaComanda->id }}
+                    ({{ __($ultimaComanda->estado) }})
+                </h3>
+
+                @if($ultimaComanda->detalles && $ultimaComanda->detalles->count())
+                    <ul class="menu-list">
+                        @foreach($ultimaComanda->detalles as $d)
+                            <li>
+                                <div class="menu-line">
+                                    <span class="menu-item">
+                                        {{ $d->producto->nombre ?? 'Producte' }} × {{ $d->cantidad }}
+                                    </span>
+                                    <span class="dots"></span>
+                                    <span class="price">
+                                        {{ number_format($d->subtotal, 2, ',', '.') }}€
+                                    </span>
+                                </div>
+
+                                @if(!empty($d->nota))
+                                    <p class="desc">
+                                        <em>@lang('Nota'):</em> {{ $d->nota }}
+                                    </p>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+
+                <p style="margin-top:10px;">
+                    <strong>@lang('Total'):</strong>
+                    {{ number_format($ultimaComanda->total, 2, ',', '.') }}€
+                </p>
             </div>
         @endif
 
         {{-- Punts i recompenses --}}
         <div class="section-head" style="margin-top:28px;">
             <h2 class="script">@lang('Punts i recompenses')</h2>
-            <p class="muted">@lang('Tiramisù, Panna cotta o Cheesecake')</p>
+            <p class="muted">
+                @lang('Tiramisù, Panna cotta o Cheesecake')
+            </p>
         </div>
 
         <div class="card" style="max-width:900px;margin:0 auto;">
-            <p>@lang('Total punts:') <strong>{{ number_format($gastat,2,',','.') }}</strong></p>
+            <p>
+                @lang('Total punts:') 
+                <strong>{{ number_format($gastat, 2, ',', '.') }}</strong>
+            </p>
+
             <div class="progress">
                 <div class="bar" style="width: {{ $progress }}%"></div>
             </div>
+
             <p class="muted small">
                 @lang('Progrés actual: :progress% cap a la propera recompensa.', ['progress' => $progress])
             </p>

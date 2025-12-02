@@ -342,12 +342,23 @@ html, body { overflow-x: hidden; }
 /* Accions a la dreta de la secció */
 .page-actions {
   max-width: 1100px;
-  margin: 0 auto 18px;
+  margin: 10px auto 20px;  /* <-- afegim px aquí */
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 10px;               /* espai entre fills (els dos botons) */
 }
 
-.logout-form { display: inline-block; }
+/* Fallback per si el navegador passa de "gap" en flex */
+.page-actions > * + * {
+  margin-left: 10px;
+}
+
+.logout-form {
+  display: inline-block;
+}
+
+
 
 /* Variant de botó "perill" seguint la línia de la home */
 .cta.danger {
