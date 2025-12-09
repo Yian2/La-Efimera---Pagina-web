@@ -428,3 +428,90 @@ html, body { overflow-x: hidden; }
 .auth-card .auth-input::placeholder {
     color: #777777;
 }
+
+
+
+
+/* ==== NAVBAR PRINCIPAL ==== */
+
+.main-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: radial-gradient(circle at top, #1b1f2a 0, #05060b 50%, #05060b 100%);
+  border-bottom: 1px solid rgba(255, 204, 128, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.main-nav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main-nav-brand {
+  font-family: 'Yellowtail', cursive;
+  font-size: 1.4rem;
+  color: #f8f4ec;
+  text-decoration: none;
+}
+
+.main-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: 'Quicksand', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.95rem;
+}
+
+.main-nav-links a {
+  color: #f3e1b8;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s;
+}
+
+.main-nav-links a:hover {
+  border-bottom-color: rgba(255, 204, 128, 0.7);
+  color: #ffe0a3;
+}
+
+/* Botó de sortir */
+.main-nav-logout {
+  display: inline-block;
+}
+
+.main-nav-logout button {
+  background: transparent;
+  border-radius: 999px;
+  border: 1px dashed rgba(255, 120, 120, 0.7);
+  padding: 0.25rem 0.8rem;
+  font-size: 0.85rem;
+  color: #ffd0d0;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s;
+}
+
+.main-nav-logout button:hover {
+  background: rgba(255, 120, 120, 0.12);
+  border-color: rgba(255, 120, 120, 1);
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-nav-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .main-nav-links {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+}

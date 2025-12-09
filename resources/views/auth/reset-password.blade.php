@@ -1,39 +1,74 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
-
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+    <section class="section">
+        <div class="section-head" style="margin-bottom: 16px;">
+            <h2 class="script">@lang('Restablir contrasenya')</h2>
+            <p class="muted">
+                @lang('Introdueix una nova contrasenya per al teu compte.')
+            </p>
         </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        <div class="auth-wrap">
+            <div class="auth-card">
+                <form method="POST" action="{{ route('password.store') }}">
+                    @csrf
+
+                    <!-- Token -->
+                    <input type="hidden" name="token" value="{{ $request->route('token') }}">
+
+                    <!-- Email -->
+                    <label>
+                        <span>@lang('Correu')</span>
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value="{{ old('email', $request->email) }}"
+                            required
+                            autofocus
+                            autocomplete="username"
+                        />
+                        @error('email')
+                            <div class="auth-errors">{{ $message }}</div>
+                        @enderror
+                    </label>
+
+                    <!-- Password -->
+                    <label>
+                        <span>@lang('Nova contrasenya')</span>
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            required
+                            autocomplete="new-password"
+                        />
+                        @error('password')
+                            <div class="auth-errors">{{ $message }}</div>
+                        @enderror
+                    </label>
+
+                    <!-- Confirm -->
+                    <label>
+                        <span>@lang('Repeteix la contrasenya')</span>
+                        <input
+                            id="password_confirmation"
+                            type="password"
+                            name="password_confirmation"
+                            required
+                            autocomplete="new-password"
+                        />
+                        @error('password_confirmation')
+                            <div class="auth-errors">{{ $message }}</div>
+                        @enderror
+                    </label>
+
+                    <div class="auth-actions">
+                        <button class="cta" type="submit">
+                            @lang('Restablir contrasenya')
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </section>
 </x-guest-layout>
