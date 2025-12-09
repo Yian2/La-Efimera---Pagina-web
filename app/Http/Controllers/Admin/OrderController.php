@@ -14,6 +14,6 @@ class OrderController extends Controller
             ->orderByDesc('id')
             ->paginate(20);
 
-        return view('admin.orders.index', compact('orders'));
+        return view('admin.orders', compact('orders'));
     }
 }

@@ -9,10 +9,12 @@
         </div>
 
         <div class="card" style="max-width:900px;margin:0 auto;">
+            {{-- Hora de recollida --}}
             <p>
                 <strong>@lang('Hora de recollida'):</strong> {{ $pickupTime }}
             </p>
 
+            {{-- Línies de la comanda --}}
             <ul class="menu-list">
                 @foreach($detalls as $idx => $d)
                     <li>
@@ -35,10 +37,28 @@
                 @endforeach
             </ul>
 
-            <p style="margin-top:12px;">
-                <strong>@lang('Total'):</strong>
-                {{ number_format($total, 2, ',', '.') }}€
-            </p>
+            {{-- Resum econòmic amb descompte de treballador --}}
+            <div style="margin-top:16px;border-top:1px dashed rgba(255,255,255,0.12);padding-top:10px;">
+                {{-- Subtotal --}}
+                <p>
+                    <strong>@lang('Subtotal'):</strong>
+                    {{ number_format($subtotal, 2, ',', '.') }}€
+                </p>
+
+                {{-- Si hi ha descompte de worker, el mostrem --}}
+                @if(!empty($discountPercent) && $discountPercent > 0)
+                    <p>
+                        <strong>@lang('Descompte treballador') ({{ $discountPercent }}%):</strong>
+                        -{{ number_format($discountAmount, 2, ',', '.') }}€
+                    </p>
+                @endif
+
+                {{-- Total final --}}
+                <p style="margin-top:8px;font-size:1.05rem;">
+                    <strong>@lang('Total a pagar'):</strong>
+                    {{ number_format($total, 2, ',', '.') }}€
+                </p>
+            </div>
 
             {{-- Formulari ocult per CONFIRMAR (envia les mateixes dades a store) --}}
             <form method="POST" action="{{ route('takeaway.store') }}" id="confirm-form">

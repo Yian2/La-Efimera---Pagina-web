@@ -6,11 +6,14 @@ use App\Models\Pedido;
 use App\Models\DetallePedido;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TakeawayController extends Controller
 {
-    // PAS 0: formulari de Take Away
+    /**
+     * Formulari per crear la comanda
+     */
     public function create()
     {
         $productos = Producto::where('activo', true)
@@ -24,137 +27,171 @@ class TakeawayController extends Controller
             '20:00','20:15','20:30','20:45','21:00','21:15','21:30','21:45','22:00',
         ];
 
-        return view('takeaway.create', compact('productos', 'timeSlots'));
+        return view('takeaway.create', compact('productos','timeSlots'));
     }
 
     /**
-     * PAS 1: Validar formulari i mostrar el RESUM (NO guarda a la BBDD).
+     * Pas intermedi: revisar la comanda abans de confirmar.
+     * Aquí calculem subtotal, descompte i total (sense guardar encara).
      */
     public function review(Request $request)
     {
+        // Validació bàsica
         $validated = $request->validate([
-            'pickup_time' => ['required','string'],
-            'lines'       => ['required','array'],
-            'lines.*.producto_id' => ['nullable','integer','exists:productos,id'],
-            'lines.*.cantidad'    => ['nullable','integer','min:1','max:20'],
-            'lines.*.nota'        => ['nullable','string','max:255'],
+            'pickup_time' => ['required', 'string'],
+            'lines'       => ['required', 'array'],
         ]);
 
-        // Línies vàlides
-        $lines = collect($validated['lines'])
-            ->filter(fn($l) => !empty($l['producto_id']) && !empty($l['cantidad']))
-            ->values();
+        $pickupTime = $validated['pickup_time'];
+        $lines      = $validated['lines'];
 
-        if ($lines->isEmpty()) {
-            return back()
-                ->withErrors(['lines' => __('Afegeix com a mínim un producte.')])
-                ->withInput();
-        }
-
-        // Muntem el “carret” per al resum
-        $detalls = [];
-        $total = 0;
+        $detalls   = [];
+        $subtotal  = 0;
 
         foreach ($lines as $line) {
+            if (empty($line['producto_id']) || empty($line['cantidad'])) {
+                continue;
+            }
+
             $producto = Producto::find($line['producto_id']);
             if (!$producto) {
                 continue;
             }
 
-            $cantidad  = (int) $line['cantidad'];
-            $preuUnit  = (float) $producto->precio;
-            $subtotal  = $cantidad * $preuUnit;
-            $nota      = $line['nota'] ?? null;
-
-            $total += $subtotal;
+            $cantidad = (int) $line['cantidad'];
+            $lineSubtotal = $producto->precio * $cantidad;
 
             $detalls[] = [
-                'producto_id'   => $producto->id,
-                'nombre'        => $producto->nombre,
-                'cantidad'      => $cantidad,
-                'precio_unit'   => $preuUnit,
-                'subtotal'      => $subtotal,
-                'nota'          => $nota,
+                'producto_id' => $producto->id,
+                'nombre'      => $producto->nombre,
+                'cantidad'    => $cantidad,
+                'nota'        => $line['nota'] ?? '',
+                'subtotal'    => $lineSubtotal,
             ];
+
+            $subtotal += $lineSubtotal;
         }
 
+        // Si no hi ha línies vàlides, tornem enrere
+        if (empty($detalls)) {
+            return back()->withErrors([
+                'lines' => __('No s’ha pogut generar la comanda. Revisa els productes.'),
+            ]);
+        }
+
+        // 🔥 Descompte treballador
+        $user = Auth::user();
+        $isWorker = $user && $user->rol === 'worker';
+
+        $discountPercent = $isWorker ? 25 : 0;
+        $discountAmount  = $isWorker ? $subtotal * 0.25 : 0;
+        $total           = $subtotal - $discountAmount;
+
         return view('takeaway.review', [
-            'pickupTime' => $validated['pickup_time'],
-            'detalls'    => $detalls,
-            'total'      => $total,
+            'pickupTime'      => $pickupTime,
+            'detalls'         => $detalls,
+            'subtotal'        => $subtotal,
+            'discountPercent' => $discountPercent,
+            'discountAmount'  => $discountAmount,
+            'total'           => $total,
         ]);
     }
 
     /**
-     * PAS 2: Confirmar i guardar a la base de dades.
+     * Confirmar la comanda: guardar a BD.
+     * Recalculem totals per seguretat i apliquem el mateix descompte.
      */
     public function store(Request $request)
     {
-        // Tornem a validar (per seguretat)
         $validated = $request->validate([
-            'pickup_time' => ['required','string'],
-            'lines'       => ['required','array'],
-            'lines.*.producto_id' => ['required','integer','exists:productos,id'],
-            'lines.*.cantidad'    => ['required','integer','min:1','max:20'],
-            'lines.*.nota'        => ['nullable','string','max:255'],
+            'pickup_time' => ['required', 'string'],
+            'lines'       => ['required', 'array'],
         ]);
 
-        $userId = auth()->id();
+        $pickupTime = $validated['pickup_time'];
+        $lines      = $validated['lines'];
 
-        $lines = collect($validated['lines'])
-            ->filter(fn($l) => !empty($l['producto_id']) && !empty($l['cantidad']))
-            ->values();
+        $user = Auth::user();
 
-        if ($lines->isEmpty()) {
-            return redirect()->route('takeaway.create')
-                ->withErrors(['lines' => __('Afegeix com a mínim un producte.')]);
-        }
+        DB::beginTransaction();
 
-        $pedido = DB::transaction(function () use ($userId, $validated, $lines) {
-            $pedido = Pedido::create([
-                'user_id'        => $userId,
-                'estado'         => 'pendiente',
-                'es_para_llevar' => true,
-                'total'          => 0,
-                'fecha_creacion' => now(),
-                // si tens un camp per a l’hora de recollida:
-                // 'hora_recollida' => $validated['pickup_time'],
-            ]);
+        try {
+            $subtotal = 0;
+            $lineasValidas = [];
 
             foreach ($lines as $line) {
-                $producto = Producto::find($line['producto_id']);
-                $cantidad = (int) $line['cantidad'];
-                $precio   = (float) $producto->precio;
+                if (empty($line['producto_id']) || empty($line['cantidad'])) {
+                    continue;
+                }
 
-                DetallePedido::create([
-                    'pedido_id'          => $pedido->id,
-                    'producto_id'        => $producto->id,
-                    'cantidad'           => $cantidad,
-                    'precio_unitario'    => $precio,
-                    'subtotal'           => $cantidad * $precio,
-                    'nota'               => $line['nota'] ?? null,
-                    'fecha_creacion'     => now(),
-                    'fecha_actualizacion'=> now(),
+                $producto = Producto::find($line['producto_id']);
+                if (!$producto) {
+                    continue;
+                }
+
+                $cantidad = (int) $line['cantidad'];
+                $lineSubtotal = $producto->precio * $cantidad;
+
+                $lineasValidas[] = [
+                    'producto'  => $producto,
+                    'cantidad'  => $cantidad,
+                    'nota'      => $line['nota'] ?? '',
+                    'subtotal'  => $lineSubtotal,
+                ];
+
+                $subtotal += $lineSubtotal;
+            }
+
+            if (empty($lineasValidas)) {
+                return back()->withErrors([
+                    'lines' => __('No s’ha pogut crear la comanda. Revisa els productes.'),
                 ]);
             }
 
-            $total = $pedido->detalles()->sum('subtotal');
-            $pedido->update(['total' => $total]);
+            // 🔥 Descompte treballador (mateix que a review)
+            $isWorker = $user && $user->rol === 'worker';
+            $discountAmount = $isWorker ? $subtotal * 0.25 : 0;
+            $total          = $subtotal - $discountAmount;
 
-            return $pedido;
-        });
+            // Crear Pedido
+            $pedido = new Pedido();
+            $pedido->user_id     = $user->id;
+            $pedido->total       = $total;         // total amb descompte
+            $pedido->pickup_time = $pickupTime;
+            $pedido->estado      = 'pendent';      // o l’estat que facis servir
+            $pedido->save();
 
-        // PAS 3: anar a la pantalla de "Gràcies / Comanda confirmada"
-        return redirect()->route('takeaway.success', $pedido);
+            // Crear DetallePedido
+            foreach ($lineasValidas as $linea) {
+                $detalle = new DetallePedido();
+                $detalle->pedido_id   = $pedido->id;
+                $detalle->producto_id = $linea['producto']->id;
+                $detalle->cantidad    = $linea['cantidad'];
+                $detalle->subtotal    = $linea['subtotal'];
+                $detalle->nota        = $linea['nota'];
+                $detalle->save();
+            }
+
+            DB::commit();
+
+            return redirect()
+                ->route('takeaway.success', $pedido)
+                ->with('status', __('Comanda creada correctament.'));
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            report($e);
+
+            return back()->withErrors([
+                'general' => __('Hi ha hagut un error en crear la comanda. Torna-ho a provar.'),
+            ]);
+        }
     }
 
     /**
-     * PAS 3: Pantalla final de comanda confirmada.
+     * Pantalla de comanda creada amb èxit
      */
     public function success(Pedido $pedido)
     {
-        $pedido->load('detalles.producto');
-
         return view('takeaway.success', compact('pedido'));
     }
 }

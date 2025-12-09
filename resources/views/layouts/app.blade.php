@@ -8,14 +8,18 @@
 
     <title>{{ $title ?? 'La Efímera · Pizzeria creativa' }}</title>
 
+    {{-- Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- Fonts + CSS global --}}
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Quicksand:wght@400;600&family=Yellowtail&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+    {{-- Favicon --}}
     <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}?v=1">
     <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}?v=1">
 
+    {{-- SEO --}}
     <meta name="description" content="Pizzes artesanes amb fermentació lenta, postres casolans i take away.">
     <meta property="og:title" content="La Efímera · Pizzeria creativa">
     <meta property="og:description" content="Pizzes artesanes amb fermentació lenta, postres casolans i take away.">
@@ -24,58 +28,76 @@
     <meta property="og:image" content="{{ asset('images/logo.png') }}?v=1">
     <meta property="og:image:alt" content="Logo La Efímera">
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="La Efímera · Pizzeria creativa">
-    <meta name="twitter:description" content="Pizzes artesanes amb fermentació lenta, postres casolans i take away.">
-    <meta name="twitter:image" content="{{ asset('images/logo.png') }}?v=1">
-
     @stack('styles')
 </head>
+
 <body class="font-sans antialiased">
     <div class="min-h-screen">
 
         {{-- NAV PRINCIPAL --}}
         <nav class="main-nav">
             <div class="main-nav-inner">
+                
+                {{-- Marca --}}
                 <a href="{{ route('home') }}" class="main-nav-brand">
                     La Efímera
                 </a>
 
+                {{-- Enllaços --}}
                 <div class="main-nav-links">
+
                     {{-- Enllaços generals --}}
                     <a href="{{ route('home') }}">Inici</a>
                     <a href="#carta">Carta</a>
                     <a href="#takeaway">Take Away</a>
                     <a href="#contacte">Contacte</a>
 
+                    {{-- SI ESTÀ LOGUEJAT --}}
                     @auth
+
                         {{-- Espai d’usuari --}}
-                        <a href="{{ route('client.dashboard') }}">El meu espai</a>
+                        <a href="{{ route('client.dashboard') }}">
+                            El meu espai
+                        </a>
 
-                        {{-- Enllaços d’ADMIN els posarem més endavant quan tinguem rutes --}}
-                        {{--
+                        {{-- ENLLAÇOS D’ADMIN --}}
                         @can('admin')
-                            <a href="{{ route('admin.orders.index') }}">Totes les comandes</a>
-                            <a href="{{ route('admin.stats.index') }}">Gràfics de vendes</a>
-                            <a href="{{ route('admin.users.index') }}">Gestió d’usuaris</a>
-                        @endcan
-                        --}}
+                            <a href="{{ route('admin.orders.index') }}">
+                                Totes les comandes
+                            </a>
 
-                        {{-- Logout --}}
+                            <a href="{{ route('admin.stats.index') }}">
+                                Gràfics de vendes
+                            </a>
+
+                            <a href="{{ route('admin.users.index') }}">
+                                Gestió d’usuaris
+                            </a>
+                        @endcan
+
+                        {{-- LOGOUT --}}
                         <form method="POST" action="{{ route('logout') }}" class="main-nav-logout">
                             @csrf
-                            <button type="submit">Sortir</button>
+                            <button type="submit">
+                                Sortir
+                            </button>
                         </form>
+
                     @endauth
 
+                    {{-- SI NO ESTÀ LOGUEJAT --}}
                     @guest
-                        <a href="{{ route('login') }}">Accedeix</a>
+                        <a href="{{ route('login') }}">
+                            Accedeix
+                        </a>
                     @endguest
+
                 </div>
             </div>
         </nav>
         {{-- FI NAV --}}
 
+        {{-- CONTINGUT --}}
         <main>
             {{ $slot }}
         </main>

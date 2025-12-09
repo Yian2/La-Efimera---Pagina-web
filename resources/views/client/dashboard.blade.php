@@ -12,7 +12,7 @@
                 ])
             </p>
 
-            {{-- Badge de rol perquè visualment es vegi clar --}}
+            {{-- Badge de rol --}}
             <p class="muted small" style="margin-top:8px;">
                 @if($user->rol === 'admin')
                     <span style="padding:4px 10px;border-radius:999px;border:1px solid #f97373;color:#fecaca;background:rgba(248,113,113,0.08);font-weight:600;">
@@ -32,12 +32,10 @@
 
         {{-- Accions de pàgina (dreta) --}}
         <div class="page-actions">
-            {{-- Botó "Tornar a l’inici" --}}
             <a href="{{ route('home') }}" class="cta ghost">
                 @lang('Tornar a l’inici')
             </a>
 
-            {{-- Formulari de logout --}}
             <form method="POST" action="{{ route('logout') }}" class="logout-form">
                 @csrf
                 <button type="submit" class="cta ghost danger">
@@ -46,7 +44,7 @@
             </form>
         </div>
 
-        {{-- Targetes principals comunes per a tots els rols --}}
+        {{-- Targetes principals comunes --}}
         <div class="card-grid">
             <div class="card">
                 <h3>@lang('Demanar per emportar')</h3>
@@ -72,42 +70,51 @@
                 </a>
             </div>
 
-            {{-- Bloc extra només per ADMIN --}}
+            {{--ZONA ADMIN --}}
             @if($user->rol === 'admin')
                 <div class="card" style="border-color: rgba(248,113,113,0.6);">
                     <h3>@lang('Zona administrador')</h3>
                     <p class="muted">
-                        @lang('Com a administrador podràs gestionar la carta, el personal i veure dades agregades de vendes. Ara mateix aquesta zona és només informativa.')
+                        @lang('Accedeix directament a les eines de gestió del local.')
                     </p>
-                    <ul class="link-list" style="margin-top:10px;">
-                        <li>• @lang('En una següent fase aquí afegirem: gestió d’usuaris (rol i descompte).')</li>
-                        <li>• @lang('Accés a totes les comandes del local.')</li>
-                        <li>• @lang('Gràfics de vendes per dies, setmanes i productes.')</li>
-                    </ul>
+
+                    <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
+                        <a class="cta ghost" href="{{ route('admin.users.index') }}">
+                            @lang('Gestió d’usuaris (rol)')
+                        </a>
+
+                        <a class="cta ghost" href="{{ route('admin.orders.index') }}">
+                            @lang('Veure totes les comandes')
+                        </a>
+
+                        <a class="cta ghost" href="{{ route('admin.stats.index') }}">
+                            @lang('Gràfics de vendes')
+                        </a>
+                    </div>
                 </div>
             @endif
 
-            {{-- Bloc extra per WORKER --}}
+            {{--  TREBALLADOR (25% fix) --}}
             @if($user->rol === 'worker')
                 <div class="card" style="border-color: rgba(56,189,248,0.6);">
-                    <h3>@lang('Avantatges de treballador')</h3>
+                    <h3>@lang('Espai de treballador')</h3>
                     <p class="muted">
-                        @lang('El teu descompte s’aplica automàticament a les comandes que facis amb el teu usuari.')
+                        @lang('Com a membre de l’equip tens accés a comandes amb descompte intern.')
                     </p>
 
                     <p style="margin-top:8px;">
                         <strong>@lang('Descompte actual'):</strong>
-                        {{ number_format($user->descompte * 100, 0) }}%
+                        25%
                     </p>
 
                     <p class="small muted" style="margin-top:4px;">
-                        @lang('Si el descompte no és correcte, parla amb el responsable perquè t’actualitzi el teu rol o percentatge.')
+                        @lang('Aquest descompte és fix per a tot el personal.')
                     </p>
                 </div>
             @endif
         </div>
 
-        {{-- Última comanda (té sentit per tots els rols que fan comandes) --}}
+        {{-- Última comanda --}}
         @if($ultimaComanda)
             <div class="card" style="max-width:1100px;margin:18px auto 0;">
                 <h3>
@@ -146,7 +153,7 @@
             </div>
         @endif
 
-        {{-- Punts i recompenses: això té més sentit per CLIENT i WORKER; si vols, pots excloure admin --}}
+        {{-- Punts i recompenses (client + worker) --}}
         @if(in_array($user->rol, ['client','worker']))
             <div class="section-head" style="margin-top:28px;">
                 <h2 class="script">@lang('Punts i recompenses')</h2>
