@@ -20,7 +20,8 @@ class OrderController extends Controller
         $from      = $request->input('from');
         $to        = $request->input('to');
 
-        $query = Pedido::with(['user'])
+        // Modificació clau: Carreguem 'detalles' i 'detalles.producto' per a la vista d'índex (N+1)
+        $query = Pedido::with(['user', 'detalles.producto'])
             ->withCount('detalles');
 
         if ($userId) {
@@ -58,11 +59,11 @@ class OrderController extends Controller
         $users    = User::orderBy('email')->get();
         $products = Producto::orderBy('nombre')->get();
 
-        // Productes més venuts: CORRECCIÓN para incluir total_importe
+        // Productes més venuts: CORRECCIÓ DE LA COLUMNA SQL
         $topProducts = DB::table('detalles_pedido')
             ->select('producto_id')
             ->selectRaw('SUM(cantidad) as total_qty')
-            // **LÍNEA CORREGIDA:** Reemplaza 'precio_unitario' si el nombre es diferente
+            // Ús correcte de 'precio_unitario'
             ->selectRaw('SUM(cantidad * precio_unitario) as total_importe')
             ->groupBy('producto_id')
             ->orderByDesc('total_qty')
@@ -86,12 +87,13 @@ class OrderController extends Controller
 
     public function show(Pedido $pedido)
     {
+        // Ens assegurem de carregar les relacions per al detall
         $pedido->load([
             'user',
             'detalles.producto',
         ]);
 
-        return view('admin.show', compact('pedido'));
-        // o: return view('admin.orders.show', compact('pedido'));
+        // ATENCIÓ: Assegura't que la vista es diu 'admin.orders.show' o 'admin.show'
+        return view('admin.show', compact('pedido')); 
     }
 }

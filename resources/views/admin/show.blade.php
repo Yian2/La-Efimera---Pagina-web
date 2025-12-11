@@ -17,10 +17,12 @@
                     <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
                         <th style="text-align:left;padding:8px 4px;">@lang('Producte')</th>
                         <th style="text-align:right;padding:8px 4px;">@lang('Quantitat')</th>
+                        <th style="text-align:right;padding:8px 4px;">@lang('Preu unitari')</th>
+                        <th style="text-align:right;padding:8px 4px;">@lang('Subtotal')</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($pedido->detalles as $linea)
+                    @forelse($pedido->detalles as $linea)
                         <tr style="border-bottom:1px dashed rgba(255,255,255,0.06);">
                             <td style="padding:6px 4px;">
                                 {{ optional($linea->producto)->nombre ?? '—' }}
@@ -28,8 +30,20 @@
                             <td style="padding:6px 4px;text-align:right;">
                                 {{ $linea->cantidad }}
                             </td>
+                            <td style="padding:6px 4px;text-align:right;">
+                                {{ number_format($linea->precio_unitario, 2, ',', '.') }} €
+                            </td>
+                            <td style="padding:6px 4px;text-align:right;">
+                                {{ number_format($linea->cantidad * $linea->precio_unitario, 2, ',', '.') }} €
+                            </td>
                         </tr>
-                    @endforeach
+                    @empty
+                         <tr>
+                            <td colspan="4" style="padding:8px 4px; text-align:center;">
+                                @lang('Aquesta comanda no conté productes.')
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
 

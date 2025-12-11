@@ -139,7 +139,7 @@ Route::middleware(['auth', 'can:admin'])
 
         // **AÑADE ESTA LÍNEA O AJUSTA LA DEFINICIÓN**
         // Detall d'una comanda (Show)
-        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
+        //Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
 
         // Estadístiques / vendes
         Route::get('/stats', [AdminStatsController::class, 'index'])->name('stats.index');

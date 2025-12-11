@@ -1,5 +1,3 @@
-{{-- resources/views/admin/orders/index.blade.php --}}
-
 <x-app-layout :title="__('Totes les comandes')">
     <section class="section">
         <div class="section-head">
@@ -115,8 +113,8 @@
                             @lang('Filtrar')
                         </button>
                         <a href="{{ route('admin.orders.index') }}"
-                           class="cta ghost"
-                           style="padding:8px 14px;font-size:13px;display:inline-flex;align-items:center;justify-content:center;">
+                            class="cta ghost"
+                            style="padding:8px 14px;font-size:13px;display:inline-flex;align-items:center;justify-content:center;">
                             @lang('Netejar')
                         </a>
                     </div>
@@ -131,6 +129,7 @@
                     <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
                         <th style="text-align:left;padding:8px 4px;">ID</th>
                         <th style="text-align:left;padding:8px 4px;">@lang('Correu client')</th>
+                        <th style="text-align:left;padding:8px 4px;">@lang('Productes')</th> {{-- NOVA CAPÇALERA --}}
                         <th style="text-align:left;padding:8px 4px;">@lang('Total')</th>
                         <th style="text-align:left;padding:8px 4px;">@lang('Estat')</th>
                         <th style="text-align:left;padding:8px 4px;">@lang('Data')</th>
@@ -138,13 +137,22 @@
                 </thead>
                 <tbody>
                     @forelse ($orders as $order)
-                        <tr class="order-row"
-                            data-href="{{ route('admin.orders.show', $order) }}"
-                            style="border-bottom:1px dashed rgba(255,255,255,0.06);cursor:pointer;">
+                        <tr style="border-bottom:1px dashed rgba(255,255,255,0.06);">
                             <td style="padding:6px 4px;">#{{ $order->id }}</td>
                             <td style="padding:6px 4px;">
                                 {{ optional($order->user)->email ?? '—' }}
                             </td>
+                            
+                            {{-- NOVA CEL·LA AMB ELS PRODUCTES --}}
+                            <td style="padding:6px 4px; font-size: 12px; color: #aaa;">
+                                @forelse($order->detalles as $detalle)
+                                    {{ optional($detalle->producto)->nombre }} (x{{ $detalle->cantidad }})@if(!$loop->last), @endif
+                                @empty
+                                    <span style="color: red;">@lang('Buit')</span>
+                                @endforelse
+                            </td>
+                            {{-- FI NOVA CEL·LA --}}
+
                             <td style="padding:6px 4px;">
                                 {{ number_format($order->total, 2, ',', '.') }} €
                             </td>
@@ -157,7 +165,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" style="padding:8px 4px;">
+                            <td colspan="6" style="padding:8px 4px;">
                                 @lang('No hi ha comandes amb aquests filtres.')
                             </td>
                         </tr>
