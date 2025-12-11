@@ -1,3 +1,5 @@
+<!--
+
 <nav class="bg-white border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <a href="{{ route('home') }}" class="text-lg font-semibold">
@@ -12,3 +14,6 @@
         </div>
     </div>
 </nav>
+
+
+-->

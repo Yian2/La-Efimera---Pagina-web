@@ -35,67 +35,70 @@
     <div class="min-h-screen">
 
         {{-- NAV PRINCIPAL --}}
-        <nav class="main-nav">
-            <div class="main-nav-inner">
-                
-                {{-- Marca --}}
-                <a href="{{ route('home') }}" class="main-nav-brand">
-                    La Efímera
+        <nav class="navbar">
+            <div class="nav-inner">
+                {{-- Marca La Efímera estil boho --}}
+                <a href="{{ route('home') }}" class="brand" aria-label="@lang('Inici')">
+                    <span class="brand-script">La Efímera</span>
+                    <span class="brand-sub">@lang('pizzeria creativa')</span>
                 </a>
 
-                {{-- Enllaços --}}
-                <div class="main-nav-links">
+                {{-- Menú principal (links + idioma + usuari) --}}
+                <nav class="nav">
+                    {{-- Enllaços públics --}}
+                    <a href="{{ route('home') }}">@lang('Inici')</a>
+                    <a href="{{ route('home') }}#carta">@lang('Carta')</a>
+                    <a href="{{ route('home') }}#takeaway">@lang('Take Away')</a>
+                    <a href="{{ route('home') }}#contacte">@lang('Contacte')</a>
+                    <a href="{{ route('acces') }}" target="_blank" rel="noopener">@lang('Accés')</a>
 
-                    {{-- Enllaços generals --}}
-                    <a href="{{ route('home') }}">Inici</a>
-                    <a href="#carta">Carta</a>
-                    <a href="#takeaway">Take Away</a>
-                    <a href="#contacte">Contacte</a>
+                    {{-- Desplegable d'idioma --}}
+                    <div class="lang-dropdown">
+                        <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
+                            {{ strtoupper(app()->getLocale()) }}
+                            <svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M5 7l5 6 5-6H5z" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        <div class="lang-menu">
+                            <a href="{{ route('lang.switch','ca') }}">Català</a>
+                            <a href="{{ route('lang.switch','es') }}">Español</a>
+                            <a href="{{ route('lang.switch','en') }}">English</a>
+                            <a href="{{ route('lang.switch','fr') }}">Français</a>
+                        </div>
+                    </div>
 
-                    {{-- SI ESTÀ LOGUEJAT --}}
+                    {{-- Zona usuari/admin (surt a la dreta com la resta) --}}
                     @auth
-
-                        {{-- Espai d’usuari --}}
-                        <a href="{{ route('client.dashboard') }}">
-                            El meu espai
+                        <a href="{{ route('client.dashboard') }}" class="nav-link-user">
+                            @lang('El meu espai')
                         </a>
 
-                        {{-- ENLLAÇOS D’ADMIN --}}
                         @can('admin')
-                            <a href="{{ route('admin.orders.index') }}">
-                                Totes les comandes
+                            <a href="{{ route('admin.orders.index') }}" class="nav-link-user">
+                                @lang('Totes les comandes')
                             </a>
-
-                            <a href="{{ route('admin.stats.index') }}">
-                                Gràfics de vendes
+                            <a href="{{ route('admin.stats.index') }}" class="nav-link-user">
+                                @lang('Gràfics de vendes')
                             </a>
-
-                            <a href="{{ route('admin.users.index') }}">
-                                Gestió d’usuaris
+                            <a href="{{ route('admin.users.index') }}" class="nav-link-user">
+                                @lang('Gestió d’usuaris')
                             </a>
                         @endcan
 
-                        {{-- LOGOUT --}}
-                        <form method="POST" action="{{ route('logout') }}" class="main-nav-logout">
+                        <form method="POST" action="{{ route('logout') }}" class="nav-logout-form">
                             @csrf
                             <button type="submit">
-                                Sortir
+                                @lang('Sortir')
                             </button>
                         </form>
-
                     @endauth
-
-                    {{-- SI NO ESTÀ LOGUEJAT --}}
-                    @guest
-                        <a href="{{ route('login') }}">
-                            Accedeix
-                        </a>
-                    @endguest
-
-                </div>
+                </nav>
             </div>
         </nav>
-        {{-- FI NAV --}}
+        {{-- FI NAVBAR GLOBAL --}}
+
+
 
         {{-- CONTINGUT --}}
         <main>

@@ -5,45 +5,7 @@
 @endpush
 
 <x-app-layout :title="'Pizzeria Creativa · La Efímera'">
-    {{-- NAVBAR --}}
-    <header class="navbar">
-        <div class="nav-inner">
-            <a href="{{ route('home') }}" class="brand" aria-label="@lang('Inici')">
-                <span class="brand-script">La Efímera</span>
-                <span class="brand-sub">@lang('pizzeria creativa')</span>
-            </a>
-
-            <nav class="nav">
-                <a href="#carta">@lang('Carta')</a>
-                <a href="{{ route('takeaway.create') }}">@lang('Take Away')</a>
-                <a href="#contacte">@lang('Contacte')</a>
-                <a href="{{ route('acces') }}" target="_blank" rel="noopener">@lang('Accés')</a>
-
-                {{--  Desplegable d'idioma --}}
-                <div class="lang-dropdown">
-                    <button class="lang-btn" aria-haspopup="true" aria-expanded="false">
-                        {{ strtoupper(app()->getLocale()) }}
-                        <svg width="12" height="12" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 7l5 6 5-6H5z" fill="currentColor"/></svg>
-                    </button>
-                    <div class="lang-menu">
-                        <a href="{{ route('lang.switch','ca') }}">Català</a>
-                        <a href="{{ route('lang.switch','es') }}">Español</a>
-                        <a href="{{ route('lang.switch','en') }}">English</a>
-                        <a href="{{ route('lang.switch','fr') }}">Français</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    {{-- HERO --}}
-    <section class="hero">
-        <div class="hero-inner">
-            <h1>@lang("Pizzes artesanes · Obra d'autor")</h1>
-            <p>@lang('Ingredients frescos, massa amb fermentació lenta i un toc artístic. Vine al nostre obrador o demana per emportar.')</p>
-            <a class="cta" href="#carta">@lang('Veure la carta')</a>
-        </div>
-    </section>
+    
 
     {{-- CARTA --}}
     <main id="carta" class="section">

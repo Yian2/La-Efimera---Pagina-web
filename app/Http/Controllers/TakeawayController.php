@@ -32,11 +32,9 @@ class TakeawayController extends Controller
 
     /**
      * Pas intermedi: revisar la comanda abans de confirmar.
-     * Aquí calculem subtotal, descompte i total (sense guardar encara).
      */
     public function review(Request $request)
     {
-        // Validació bàsica
         $validated = $request->validate([
             'pickup_time' => ['required', 'string'],
             'lines'       => ['required', 'array'],
@@ -72,7 +70,6 @@ class TakeawayController extends Controller
             $subtotal += $lineSubtotal;
         }
 
-        // Si no hi ha línies vàlides, tornem enrere
         if (empty($detalls)) {
             return back()->withErrors([
                 'lines' => __('No s’ha pogut generar la comanda. Revisa els productes.'),
@@ -99,7 +96,6 @@ class TakeawayController extends Controller
 
     /**
      * Confirmar la comanda: guardar a BD.
-     * Recalculem totals per seguretat i apliquem el mateix descompte.
      */
     public function store(Request $request)
     {
@@ -148,7 +144,7 @@ class TakeawayController extends Controller
                 ]);
             }
 
-            // 🔥 Descompte treballador (mateix que a review)
+            // 🔥 Descompte treballador
             $isWorker = $user && $user->rol === 'worker';
             $discountAmount = $isWorker ? $subtotal * 0.25 : 0;
             $total          = $subtotal - $discountAmount;
@@ -158,7 +154,7 @@ class TakeawayController extends Controller
             $pedido->user_id     = $user->id;
             $pedido->total       = $total;         // total amb descompte
             $pedido->pickup_time = $pickupTime;
-            $pedido->estado      = 'pendent';      // o l’estat que facis servir
+            $pedido->estado      = 'pendent';      // o el que facis servir
             $pedido->save();
 
             // Crear DetallePedido
@@ -174,9 +170,9 @@ class TakeawayController extends Controller
 
             DB::commit();
 
-            return redirect()
-                ->route('takeaway.success', $pedido)
-                ->with('status', __('Comanda creada correctament.'));
+            // 👇 IMPORTANT: redirigim a la vista success amb l’ID
+            return redirect()->route('takeaway.success', ['pedido' => $pedido->id]);
+
         } catch (\Throwable $e) {
             DB::rollBack();
             report($e);

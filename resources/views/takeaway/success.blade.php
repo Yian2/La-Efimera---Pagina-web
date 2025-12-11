@@ -4,49 +4,39 @@
         <div class="section-head">
             <h2 class="script">@lang('Comanda confirmada')</h2>
             <p class="muted">
-                @lang('Gràcies per fer la teva comanda. La prepararem al més aviat possible.')
+                @lang('Gràcies! Hem rebut la teva comanda per emportar.')
             </p>
         </div>
 
-        <div class="card" style="max-width:900px;margin:0 auto;">
-            <h3 style="margin-top:0;">
-                @lang('Detall de la comanda') #{{ $pedido->id }}
-            </h3>
-
-            <ul class="menu-list">
-                @foreach($pedido->detalles as $det)
-                    <li>
-                        <div class="menu-line">
-                            <span class="menu-item">
-                                {{ $det->producto->nombre }} × {{ $det->cantidad }}
-                            </span>
-                            <span class="dots"></span>
-                            <span class="price">
-                                {{ number_format($det->subtotal, 2, ',', '.') }}€
-                            </span>
-                        </div>
-
-                        @if(!empty($det->nota))
-                            <p class="desc">
-                                <em>@lang('Nota'):</em> {{ $det->nota }}
-                            </p>
-                        @endif
-                    </li>
-                @endforeach
-            </ul>
-
-            <p style="margin-top:12px;">
-                <strong>@lang('Total'):</strong>
-                {{ number_format($pedido->total, 2, ',', '.') }}€
+        <div class="card" style="max-width:700px;margin:0 auto;text-align:left;">
+            <p>
+                @lang('Número de comanda'):
+                <strong>#{{ $pedido->id }}</strong>
             </p>
 
-            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;">
-                <a href="{{ route('dashboard') }}" class="cta">
+            @if(!empty($pedido->pickup_time))
+                <p>
+                    @lang('Hora de recollida prevista'):
+                    <strong>{{ $pedido->pickup_time }}</strong>
+                </p>
+            @endif
+
+            <p>
+                @lang('Import total'):
+                <strong>{{ number_format($pedido->total, 2, ',', '.') }}€</strong>
+            </p>
+
+            <p class="muted" style="margin-top:12px;">
+                @lang('Si hi ha qualsevol incidència, el nostre equip es posarà en contacte amb tu.')
+            </p>
+
+            <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:10px;">
+                <a href="{{ route('client.dashboard') }}" class="cta">
                     @lang('Anar al meu espai')
                 </a>
 
-                <a href="{{ route('takeaway.create') }}" class="cta ghost">
-                    @lang('Fer una altra comanda')
+                <a href="{{ route('home') }}" class="cta ghost">
+                    @lang('Tornar a l’inici')
                 </a>
             </div>
         </div>

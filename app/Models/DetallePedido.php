@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Pedido;
+use App\Models\Producto;
 
 class DetallePedido extends Model
 {
-    use HasFactory;
-
-    public $timestamps = false;
     protected $table = 'detalles_pedido';
 
     protected $fillable = [
@@ -18,18 +16,6 @@ class DetallePedido extends Model
         'cantidad',
         'precio_unitario',
         'subtotal',
-        'nota',            
-        'fecha_creacion',
-        'fecha_actualizacion',
-    ];
-
-
-    protected $casts = [
-        'cantidad'            => 'integer',
-        'precio_unitario'     => 'decimal:2',
-        'subtotal'            => 'decimal:2',
-        'fecha_creacion'      => 'datetime',
-        'fecha_actualizacion' => 'datetime',
     ];
 
     public function pedido()

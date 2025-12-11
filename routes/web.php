@@ -8,8 +8,9 @@ use App\Http\Controllers\TakeawayController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\Admin\OrderController;
 
-// 🔴 Admin
+// Admin
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\StatsController as AdminStatsController;
@@ -82,12 +83,30 @@ Route::get('/lang/{idioma}', [LocalizationController::class, 'index'])
 | Take Away (només logats)
 |--------------------------------------------------------------------------
 */
+// Rutes Take Away (només usuaris autenticats)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/takeaway', [TakeawayController::class, 'create'])->name('takeaway.create');
-    Route::post('/takeaway/review', [TakeawayController::class, 'review'])->name('takeaway.review');
-    Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])->name('takeaway.store');
-    Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])->name('takeaway.success');
+    // Formulari inicial
+    Route::get('/takeaway', [TakeawayController::class, 'create'])
+        ->name('takeaway.create');
+
+    // Pas de revisió (NOMÉS POST)
+    Route::post('/takeaway/review', [TakeawayController::class, 'review'])
+        ->name('takeaway.review');
+
+    // Si algú entra a /takeaway/review amb GET, el redirigim al formulari
+    Route::get('/takeaway/review', function () {
+        return redirect()->route('takeaway.create');
+    });
+
+    // Confirmar i desar la comanda
+    Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])
+        ->name('takeaway.store');
+
+    // Pantalla d’èxit
+    Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])
+        ->name('takeaway.success');
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -101,7 +120,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/reset-password', [NewPasswordController::class, 'store'])->name('password.store');
 });
 
-/*
+   
+    /*
 |--------------------------------------------------------------------------
 | Zona ADMIN (només rol = admin)
 |--------------------------------------------------------------------------
@@ -114,8 +134,12 @@ Route::middleware(['auth', 'can:admin'])
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
         Route::put('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
 
-        // Totes les comandes
+        // Totes les comandes (Lista)
         Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+
+        // **AÑADE ESTA LÍNEA O AJUSTA LA DEFINICIÓN**
+        // Detall d'una comanda (Show)
+        Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
 
         // Estadístiques / vendes
         Route::get('/stats', [AdminStatsController::class, 'index'])->name('stats.index');

@@ -8,12 +8,6 @@
             </p>
         </div>
 
-        {{-- BOTÓ SUPERIOR DRETA: ANAR AL MEU ESPAI --}}
-        <div class="page-actions">
-            <a href="{{ route('dashboard') }}" class="cta ghost">
-                @lang('Anar al meu espai')
-            </a>
-        </div>
 
         {{-- Estils específics per al timeline tipus Jira --}}
         <style>

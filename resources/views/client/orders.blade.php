@@ -8,12 +8,7 @@
             </p>
         </div>
 
-        {{-- BOTÓ ANAR AL MEU ESPAI (dreta) --}}
-        <div class="page-actions">
-            <a href="{{ route('client.dashboard') }}" class="cta ghost">
-                @lang('Anar al meu espai')
-            </a>
-        </div>
+       
 
         @if($orders->isEmpty())
             <div class="card" style="max-width:1100px;margin:0 auto;">

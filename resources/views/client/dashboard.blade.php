@@ -30,19 +30,7 @@
             </p>
         </div>
 
-        {{-- Accions de pàgina (dreta) --}}
-        <div class="page-actions">
-            <a href="{{ route('home') }}" class="cta ghost">
-                @lang('Tornar a l’inici')
-            </a>
-
-            <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                @csrf
-                <button type="submit" class="cta ghost danger">
-                    @lang('Tancar sessió')
-                </button>
-            </form>
-        </div>
+        
 
         {{-- Targetes principals comunes --}}
         <div class="card-grid">
