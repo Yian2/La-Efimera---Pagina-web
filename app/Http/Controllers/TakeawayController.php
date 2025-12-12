@@ -76,7 +76,7 @@ class TakeawayController extends Controller
             ]);
         }
 
-        // 🔥 Descompte treballador
+        //  Descompte treballador
         $user = Auth::user();
         $isWorker = $user && $user->rol === 'worker';
 
@@ -144,7 +144,7 @@ class TakeawayController extends Controller
                 ]);
             }
 
-            // 🔥 Descompte treballador
+            // Descompte treballador
             $isWorker = $user && $user->rol === 'worker';
             $discountAmount = $isWorker ? $subtotal * 0.25 : 0;
             $total          = $subtotal - $discountAmount;
