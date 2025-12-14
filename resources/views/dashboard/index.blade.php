@@ -18,7 +18,7 @@
                 <p><strong>@lang('Rol'):</strong> {{ ucfirst($user->rol) }}</p>
             </div>
 
-            {{-- ZONA ADMIN --}}
+            {{--  ZONA ADMIN --}}
             @if ($user->rol === 'admin')
                 <div class="card">
                     <h2 class="card-title">@lang('Administració')</h2>

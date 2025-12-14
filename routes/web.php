@@ -84,29 +84,51 @@ Route::get('/lang/{idioma}', [LocalizationController::class, 'index'])
 |--------------------------------------------------------------------------
 */
 // Rutes Take Away (només usuaris autenticats)
+// routes/web.php
+/*
 Route::middleware(['auth'])->group(function () {
-    // Formulari inicial
+    // Formulari inicial (GET)
     Route::get('/takeaway', [TakeawayController::class, 'create'])
         ->name('takeaway.create');
 
-    // Pas de revisió (NOMÉS POST)
-    Route::post('/takeaway/review', [TakeawayController::class, 'review'])
-        ->name('takeaway.review');
+    // Processament de dades (POST)
+    Route::post('/takeaway/review/process', [TakeawayController::class, 'processReview'])
+        ->name('takeaway.process_review'); 
 
-    // Si algú entra a /takeaway/review amb GET, el redirigim al formulari
-    Route::get('/takeaway/review', function () {
-        return redirect()->route('takeaway.create');
-    });
+    // Pàgina de Revisió (GET)
+    Route::get('/takeaway/review', [TakeawayController::class, 'showReview'])
+        ->name('takeaway.review'); 
 
-    // Confirmar i desar la comanda
+    // Confirmar i desar la comanda (POST)
     Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])
         ->name('takeaway.store');
 
-    // Pantalla d’èxit
+    // Pantalla d’èxit (GET)
     Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])
         ->name('takeaway.success');
 });
+*/
 
+
+Route::middleware(['auth'])->group(function () {
+    // Formulari
+    Route::get('/takeaway', [TakeawayController::class, 'create'])->name('takeaway.create');
+    Route::post('/takeaway', [TakeawayController::class, 'store'])->name('takeaway.store');
+
+    // Pas 1: formulari → RESUM (NO guarda a BBDD)
+Route::post('/takeaway/review', [TakeawayController::class, 'processReview'])
+    ->name('takeaway.review.post');
+
+Route::get('/takeaway/review', [TakeawayController::class, 'showReview'])
+    ->name('takeaway.review');
+
+
+    // Pas 2: RESUM → CONFIRMAR I GUARDAR
+    Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])->name('takeaway.store');
+
+    // Pas 3: Pantalla de gràcies / comanda confirmada
+    Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])->name('takeaway.success');
+});
 
 /*
 |--------------------------------------------------------------------------
