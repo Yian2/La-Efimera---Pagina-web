@@ -1,5 +1,4 @@
 
-{{-- resources/views/takeaway/review.blade.php --}}
 <x-app-layout :title="'Take Away · Revisa la comanda'">
     <section class="section">
         <div class="section-head">
@@ -41,7 +40,7 @@
                 {{ number_format($total, 2, ',', '.') }}€
             </p>
 
-            {{-- Formulari ocult per CONFIRMAR (envia les mateixes dades a store) --}}
+            <!-- Formulari ocult per CONFIRMAR (envia les mateixes dades a store) -->
             <form method="POST" action="{{ route('takeaway.store') }}" id="confirm-form">
                 @csrf
                 <input type="hidden" name="pickup_time" value="{{ $pickupTime }}">
@@ -58,7 +57,7 @@
                         @lang('Editar comanda')
                     </button>
 
-                    {{-- CONFIRMAR: crea el pedido i va a success --}}
+                    <!-- CONFIRMAR: crea el pedido i va a success -->
                     <button type="submit" class="cta">
                         @lang('Confirmar comanda')
                     </button>

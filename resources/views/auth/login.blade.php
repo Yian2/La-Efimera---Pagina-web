@@ -7,7 +7,7 @@
 
         <div class="auth-wrap">
             <div class="auth-card">
-                {{-- LOGO/BRAND --}}
+                <!-- LOGO/BRAND -->
                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
                     <div>
                         <div class="brand-script" style="font-size:22px; line-height:1;">La Efímera</div>
@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                {{-- FORMULARI LOGIN --}}
+                <!-- FORMULARI LOGIN -->
                 <form method="POST" action="{{ route('login') }}" novalidate>
                     @csrf
 
@@ -60,7 +60,7 @@
                             @lang('Tornar a l’inici')
                         </a>
 
-                        {{-- ENLLAÇ AL REGISTRE --}}
+                        <!-- ENLLAÇ AL REGISTRE -->
                         @if (Route::has('register'))
                             <p class="muted" style="margin-top: 12px; text-align:center;">
                                 @lang('No tens compte?')

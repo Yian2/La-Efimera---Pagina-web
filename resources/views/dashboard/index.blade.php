@@ -1,9 +1,8 @@
-{{-- resources/views/dashboard/index.blade.php --}}
 <x-app-layout :title="__('El meu espai')">
     <section class="section">
         <div class="section-head" style="margin-bottom: 16px;">
             <h1 class="script">
-                @lang('Hola'), {{ $user->name }} 👋
+                @lang('Hola'), {{ $user->name }} 
             </h1>
             <p class="muted">
                 @lang('Aquest és el teu espai personal a La Efímera.')
@@ -11,14 +10,14 @@
         </div>
 
         <div class="dashboard-grid">
-            {{-- Targeta amb info bàsica --}}
+            <!-- Targeta amb info bàsica -->
             <div class="card">
                 <h2 class="card-title">@lang('Perfil')</h2>
                 <p><strong>@lang('Correu'):</strong> {{ $user->email }}</p>
                 <p><strong>@lang('Rol'):</strong> {{ ucfirst($user->rol) }}</p>
             </div>
 
-            {{--  ZONA ADMIN --}}
+            <!--  ZONA ADMIN -->
             @if ($user->rol === 'admin')
                 <div class="card">
                     <h2 class="card-title">@lang('Administració')</h2>
@@ -47,7 +46,7 @@
                 </div>
             @endif
 
-            {{--ZONA WORKER --}}
+            <!--ZONA WORKER -->
             @if ($user->rol === 'worker')
                 <div class="card">
                     <h2 class="card-title">@lang('Espai de treballador')</h2>
@@ -85,7 +84,7 @@
                                 @lang('Fer una nova comanda')
                             </a>
                         </li>
-                        {{-- si més endavant tens historial: --}}
+                        <!-- si més endavant tens historial: -->
                         {{-- <li><a href="{{ route('orders.my') }}">@lang('Les meves comandes')</a></li> --}}
                     </ul>
                 </div>
@@ -93,7 +92,6 @@
         </div>
     </section>
 
-    {{-- Estils mínims inline (pots passar-ho a CSS) --}}
     @push('styles')
         <style>
             .dashboard-grid {

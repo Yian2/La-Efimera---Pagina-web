@@ -1,6 +1,6 @@
 <x-app-layout>
     <section class="section">
-        {{-- Títol + subtítol --}}
+        <!-- Títol + subtítol -->
         <div class="section-head">
             <h2 class="script">
                 @lang('El meu espai')
@@ -12,7 +12,7 @@
                 ])
             </p>
 
-            {{-- Badge de rol --}}
+            <!-- Badge de rol -->
             <p class="muted small" style="margin-top:8px;">
                 @if($user->rol === 'admin')
                     <span style="padding:4px 10px;border-radius:999px;border:1px solid #f97373;color:#fecaca;background:rgba(248,113,113,0.08);font-weight:600;">
@@ -32,7 +32,7 @@
 
         
 
-        {{-- Targetes principals comunes --}}
+        <!-- Targetes principals comunes -->
         <div class="card-grid">
             <div class="card">
                 <h3>@lang('Demanar per emportar')</h3>
@@ -58,7 +58,7 @@
                 </a>
             </div>
 
-            {{--ZONA ADMIN --}}
+            <!--ZONA ADMIN -->
             @if($user->rol === 'admin')
                 <div class="card" style="border-color: rgba(248,113,113,0.6);">
                     <h3>@lang('Zona administrador')</h3>
@@ -82,7 +82,7 @@
                 </div>
             @endif
 
-            {{--  TREBALLADOR (25% fix) --}}
+            <!--  TREBALLADOR (25% fix) -->
             @if($user->rol === 'worker')
                 <div class="card" style="border-color: rgba(56,189,248,0.6);">
                     <h3>@lang('Espai de treballador')</h3>
@@ -102,7 +102,7 @@
             @endif
         </div>
 
-        {{-- Última comanda --}}
+        <!-- Última comanda -->
         @if($ultimaComanda)
             <div class="card" style="max-width:1100px;margin:18px auto 0;">
                 <h3>
@@ -141,7 +141,7 @@
             </div>
         @endif
 
-        {{-- Punts i recompenses (client + worker) --}}
+        <!-- Punts i recompenses (client + worker) -->
         @if(in_array($user->rol, ['client','worker']))
             <div class="section-head" style="margin-top:28px;">
                 <h2 class="script">@lang('Punts i recompenses')</h2>

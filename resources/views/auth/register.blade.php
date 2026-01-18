@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                {{-- ERRORS VALIDACIÓ --}}
+                <!-- ERRORS VALIDACIÓ -->
                 @if ($errors->any())
                     <div class="auth-errors">
                         <ul>
@@ -26,7 +26,7 @@
                     </div>
                 @endif
 
-                {{-- FORMULARI REGISTRE --}}
+                <!-- FORMULARI REGISTRE -->
                 <form method="POST" action="{{ route('register') }}" novalidate>
                     @csrf
 

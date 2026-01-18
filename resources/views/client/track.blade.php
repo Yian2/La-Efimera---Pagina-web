@@ -1,4 +1,3 @@
-{{-- resources/views/client/track.blade.php --}}
 <x-app-layout>
     <section class="section">
         <div class="section-head">
@@ -9,7 +8,7 @@
         </div>
 
 
-        {{-- Estils específics per al timeline tipus Jira --}}
+        <!-- Estils específics per al timeline tipus Jira -->
         <style>
             .status-wrapper {
                 display: grid;

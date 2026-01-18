@@ -9,7 +9,7 @@
 
         <div class="auth-wrap">
             <div class="auth-card">
-                {{-- MISSATGE D’ÈXIT --}}
+                <!-- MISSATGE D’ÈXIT -->
                 @if (session('status'))
                     <div class="auth-success">
                         {{ session('status') }}

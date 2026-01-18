@@ -1,4 +1,3 @@
-{{-- resources/views/home.blade.php --}}
 @push('styles')
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Quicksand:wght@400;600&family=Yellowtail&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -7,7 +6,7 @@
 <x-app-layout :title="'Pizzeria Creativa · La Efímera'">
     
 
-    {{-- CARTA --}}
+    <!-- CARTA -->
     <main id="carta" class="section">
         <div class="section-head">
             <h2 class="script">@lang('La nostra carta')</h2>
@@ -88,7 +87,7 @@
         </div>
     </main>
 
-    {{-- TAKE AWAY --}}
+    <!-- TAKE AWAY -->
     <section id="takeaway" class="section alt">
         <div class="section-head">
             <h2 class="script">@lang('Take Away')</h2>
@@ -110,7 +109,6 @@
         </div>
     </section>
 
-    {{-- CONTACTE --}}
     <section id="contacte" class="section">
         <div class="section-head">
             <h2 class="script">@lang('Contacte')</h2>
@@ -123,7 +121,6 @@
         </div>
     </section>
 
-    {{-- FOOTER --}}
     <footer class="footer">
         <div class="footer-inner">
             <p>© <span id="y">2025</span> La Efímera · @lang('Pizzeria creativa')</p>

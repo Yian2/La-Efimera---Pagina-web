@@ -1,4 +1,3 @@
-{{-- resources/views/takeaway/success.blade.php --}}
 <x-app-layout :title="'Take Away · Comanda confirmada'">
     <section class="section">
         <div class="section-head">

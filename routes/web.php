@@ -63,17 +63,17 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/takeaway', [TakeawayController::class, 'create'])->name('takeaway.create');
     Route::post('/takeaway', [TakeawayController::class, 'store'])->name('takeaway.store');
 
-    // Pas 1: formulari → RESUM (NO guarda a BBDD)
+    // formulari → RESUM (NO guarda a BBDD)
 Route::post('/takeaway/review', [TakeawayController::class, 'processReview'])
     ->name('takeaway.review.post');
 
 Route::get('/takeaway/review', [TakeawayController::class, 'showReview'])
     ->name('takeaway.review');
 
-    // Pas 2: RESUM → CONFIRMAR I GUARDAR
+    // RESUM → CONFIRMAR I GUARDAR
     Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])->name('takeaway.store');
 
-    // Pas 3: Pantalla de gràcies / comanda confirmada
+    // Pantalla de gràcies / comanda confirmada
     Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])->name('takeaway.success');
 });
 
@@ -98,10 +98,7 @@ Route::middleware(['auth', 'can:admin'])
         // Totes les comandes (Lista)
         Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
 
-        // **AÑADE ESTA LÍNEA O AJUSTA LA DEFINICIÓN**
-        // Detall d'una comanda (Show)
-        //Route::get('/orders/{order}', [AdminOrderController::class, 'show'])->name('orders.show');
-
+        
         // Estadístiques / vendes
         Route::get('/stats', [AdminStatsController::class, 'index'])->name('stats.index');
     });

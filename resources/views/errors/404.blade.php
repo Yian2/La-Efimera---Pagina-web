@@ -1,4 +1,3 @@
-{{-- resources/views/errors/404.blade.php --}}
 <x-app-layout :title="'Pàgina no trobada · La Efímera'">
     <section class="section">
         <div class="section-head" style="margin-bottom: 24px; text-align:center;">
