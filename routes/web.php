@@ -15,11 +15,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\StatsController as AdminStatsController;
 
-/*
-|--------------------------------------------------------------------------
-| Rutes públiques
-|--------------------------------------------------------------------------
-*/
+
 
 // HOME
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -31,33 +27,19 @@ Route::get('/acces', function () {
         : redirect()->route('login');
 })->name('acces');
 
-/*
-|--------------------------------------------------------------------------
-| Dashboard predeterminat de Laravel/Breeze
-|→ redirigeix al panell del client
-|--------------------------------------------------------------------------
-*/
+//Dasbhoard
 Route::get('/dashboard', function () {
     return redirect()->route('client.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-/*
-|--------------------------------------------------------------------------
-| Perfil usuari
-|--------------------------------------------------------------------------
-*/
+//Perfil usuari
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Àrea client (usuari logat)
-| URL base: /client/...
-|--------------------------------------------------------------------------
-*/
+//area client
 Route::middleware('auth')->prefix('client')->name('client.')->group(function () {
     // Panell “El meu espai”
     Route::get('/', [ClientComptController::class, 'index'])->name('dashboard');
@@ -69,46 +51,12 @@ Route::middleware('auth')->prefix('client')->name('client.')->group(function () 
     Route::get('/track', [ClientComptController::class, 'track'])->name('track');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Canvi d’idioma
-|--------------------------------------------------------------------------
-*/
+//Canvi idioma
 Route::get('/lang/{idioma}', [LocalizationController::class, 'index'])
     ->whereIn('idioma', ['ca', 'es', 'en', 'fr'])
     ->name('lang.switch');
 
-/*
-|--------------------------------------------------------------------------
-| Take Away (només logats)
-|--------------------------------------------------------------------------
-*/
-// Rutes Take Away (només usuaris autenticats)
-// routes/web.php
-/*
-Route::middleware(['auth'])->group(function () {
-    // Formulari inicial (GET)
-    Route::get('/takeaway', [TakeawayController::class, 'create'])
-        ->name('takeaway.create');
-
-    // Processament de dades (POST)
-    Route::post('/takeaway/review/process', [TakeawayController::class, 'processReview'])
-        ->name('takeaway.process_review'); 
-
-    // Pàgina de Revisió (GET)
-    Route::get('/takeaway/review', [TakeawayController::class, 'showReview'])
-        ->name('takeaway.review'); 
-
-    // Confirmar i desar la comanda (POST)
-    Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])
-        ->name('takeaway.store');
-
-    // Pantalla d’èxit (GET)
-    Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])
-        ->name('takeaway.success');
-});
-*/
-
+//Rutes take away
 
 Route::middleware(['auth'])->group(function () {
     // Formulari
@@ -122,7 +70,6 @@ Route::post('/takeaway/review', [TakeawayController::class, 'processReview'])
 Route::get('/takeaway/review', [TakeawayController::class, 'showReview'])
     ->name('takeaway.review');
 
-
     // Pas 2: RESUM → CONFIRMAR I GUARDAR
     Route::post('/takeaway/confirm', [TakeawayController::class, 'store'])->name('takeaway.store');
 
@@ -130,11 +77,7 @@ Route::get('/takeaway/review', [TakeawayController::class, 'showReview'])
     Route::get('/takeaway/success/{pedido}', [TakeawayController::class, 'success'])->name('takeaway.success');
 });
 
-/*
-|--------------------------------------------------------------------------
-| Recuperar contrasenya
-|--------------------------------------------------------------------------
-*/
+//Recupera contra
 Route::middleware('guest')->group(function () {
     Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
     Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
@@ -143,11 +86,7 @@ Route::middleware('guest')->group(function () {
 });
 
    
-    /*
-|--------------------------------------------------------------------------
-| Zona ADMIN (només rol = admin)
-|--------------------------------------------------------------------------
-*/
+//Admin zona del rol
 Route::middleware(['auth', 'can:admin'])
     ->prefix('admin')
     ->name('admin.')

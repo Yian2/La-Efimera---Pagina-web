@@ -7,7 +7,7 @@
             </p>
         </div>
 
-        {{-- FILTRES --}}
+        <!--Filtres-->
         <div class="card" style="max-width:1100px;margin:0 auto 24px auto;">
             <form method="GET" class="admin-filters">
                 <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;">
@@ -27,7 +27,7 @@
                         </select>
                     </div>
 
-                    {{-- Email (text) --}}
+                    <!-- email-->
                     <div style="flex:1 1 180px;min-width:180px;">
                         <label for="email" style="display:block;font-size:12px;margin-bottom:4px;">
                             @lang('Correu conté')
@@ -42,7 +42,7 @@
                         >
                     </div>
 
-                    {{-- Rang de dates --}}
+                    <!--rang dates-->
                     <div style="flex:1 1 140px;min-width:140px;">
                         <label for="from" style="display:block;font-size:12px;margin-bottom:4px;">
                             @lang('Des de')
@@ -69,7 +69,7 @@
                         >
                     </div>
 
-                    {{-- Producte --}}
+                    <!--producte-->
                     <div style="flex:1 1 180px;min-width:180px;">
                         <label for="product_id" style="display:block;font-size:12px;margin-bottom:4px;">
                             @lang('Producte')
@@ -88,7 +88,7 @@
                         </select>
                     </div>
 
-                    {{-- Ordenació --}}
+                    <!-- ordena-->
                     <div style="flex:1 1 160px;min-width:160px;">
                         <label for="sort" style="display:block;font-size:12px;margin-bottom:4px;">
                             @lang('Ordenar per data')
@@ -107,7 +107,7 @@
                         </select>
                     </div>
 
-                    {{-- Botons --}}
+                    <!--botons-->
                     <div style="flex:0 0 auto;display:flex;gap:8px;margin-left:auto;">
                         <button type="submit" class="cta" style="padding:8px 14px;font-size:13px;">
                             @lang('Filtrar')
@@ -122,7 +122,7 @@
             </form>
         </div>
 
-        {{-- TAULA DE COMANDES --}}
+        <!--taula comandes-->
         <div class="card" style="max-width:1100px;margin:0 auto;overflow-x:auto;">
             <table style="width:100%;border-collapse:collapse;font-size:14px;">
                 <thead>
@@ -142,8 +142,7 @@
                             <td style="padding:6px 4px;">
                                 {{ optional($order->user)->email ?? '—' }}
                             </td>
-                            
-                            {{-- NOVA CEL·LA AMB ELS PRODUCTES --}}
+                            <!--nova cela amb productes-->
                             <td style="padding:6px 4px; font-size: 12px; color: #aaa;">
                                 @forelse($order->detalles as $detalle)
                                     {{ optional($detalle->producto)->nombre }} (x{{ $detalle->cantidad }})@if(!$loop->last), @endif
@@ -151,7 +150,7 @@
                                     <span style="color: red;">@lang('Buit')</span>
                                 @endforelse
                             </td>
-                            {{-- FI NOVA CEL·LA --}}
+                            <!--fi nova cela-->
 
                             <td style="padding:6px 4px;">
                                 {{ number_format($order->total, 2, ',', '.') }} €
@@ -178,7 +177,7 @@
             </div>
         </div>
 
-        {{-- TOP PRODUCTES MÉS VENGUTS --}}
+        <!--productes mes venguts-->
         <section class="section" style="max-width:1100px;margin:32px auto 0 auto;">
             <div class="section-head">
                 <h3 class="script">@lang('Top productes més venuts')</h3>

@@ -7,12 +7,12 @@
             </p>
         </div>
 
-        {{-- FILTRES AVANÇATS --}}
+        <!-- FILTRES AVANÇATS -->
         <div class="card" style="max-width:1100px;margin:0 auto 24px auto;">
             <form method="GET" class="admin-filters">
                 <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;">
 
-                    {{-- Rang de dates --}}
+                    <!-- Rang dates-->
                     <div style="flex:1 1 180px;min-width:180px;">
                         <label for="from" style="display:block;font-size:12px;margin-bottom:4px;">
                             @lang('Data Inici')
@@ -39,7 +39,7 @@
                         >
                     </div>
 
-                    {{-- Producte per filtrar el rànquing --}}
+                    <!-- Producte per filtrar el rànquing -->
                     <div style="flex:1 1 200px;min-width:200px;">
                         <label for="product_id" style="display:block;font-size:12px;margin-bottom:4px;">
                             @lang('Filtrar rànquing per producte')
@@ -58,7 +58,7 @@
                         </select>
                     </div>
 
-                    {{-- Botons --}}
+                    <!--Botons -->
                     <div style="flex:0 0 auto;display:flex;gap:8px;margin-left:auto;">
                         <button type="submit" class="cta" style="padding:8px 14px;font-size:13px;">
                             @lang('Aplicar Filtres')
@@ -74,7 +74,7 @@
         </div>
 
 
-        {{-- RESUM GENERAL AMB FILTRES APLICATS --}}
+        <!--resum general dels filtres -->
         <div style="display:flex;gap:20px;max-width:1100px;margin:0 auto 32px auto;">
             <div class="card" style="flex:1;padding:16px;">
                 <p class="muted" style="margin-bottom:4px;">@lang('Vendes Totals Acumulades')</p>
@@ -101,7 +101,7 @@
         </div>
 
 
-        {{-- 3. RÀNQUING DE PRODUCTES MÉS VENUTS --}}
+        <!--ranquing dels productes mes venguts -->
         <section style="max-width:1100px;margin:32px auto 0 auto;">
             <div class="section-head">
                 <h3 class="script">@lang('Top 10 Productes Més Venuts')</h3>
@@ -149,7 +149,7 @@
         </section>
 
 
-        {{-- VENDES PER ESTAT (BARRES) --}}
+        <!--vendes per estat -->
         <section style="max-width:1100px;margin:32px auto 0 auto;">
             <div class="section-head">
                 <h3 class="script">@lang('Vendes per estat de comanda')</h3>

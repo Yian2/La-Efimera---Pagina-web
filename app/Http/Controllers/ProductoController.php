@@ -10,30 +10,31 @@ class ProductoController extends Controller
 {
     public function index()
     {
-        $search = request('q');
-        $productos = Producto::when($search, function($q) use ($search) {
+        $search = request('q'); //agafa el text de cerca de la url (?q=...)
+
+        $productos = Producto::when($search, function($q) use ($search) { //si hi ha cerca, filtra per nom o tipus
                 $q->where('nombre','like',"%{$search}%")
                   ->orWhere('tipo','like',"%{$search}%");
             })
-            ->orderBy('id','desc')
-            ->paginate(20)
-            ->withQueryString();
+            ->orderBy('id','desc') //ordena de més nou a més antic
+            ->paginate(20) //et mostren de 20 productes i la seguent pagina 20 productes mes
+            ->withQueryString(); //manté el ?q=... quan canvies de pàgina
 
         return view('productos.index', compact('productos','search'));
     }
 
-    public function create()
+    public function create() //mostra el formulari per crear un producte
     {
         return view('productos.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request) //crea el producte a la base de dades amb validació
     {
         $data = $request->validate([
             'nombre'      => ['required','string','max:255'],
             'descripcion' => ['nullable','string'],
             'precio'      => ['required','numeric','min:0'],
-            'tipo'        => ['required','string','max:100', Rule::in([
+            'tipo'        => ['required','string','max:100', Rule::in([ //només permet aquests tipus
                 'pizza_vermella','pizza_blanca','pizza_gourmet',
                 'focaccia','lasanya','calzone','suplement',
                 'amanida','pica_pica','postre','cafe','infusio',
@@ -42,24 +43,24 @@ class ProductoController extends Controller
             'activo'      => ['required','boolean'],
         ]);
 
-        $producto = Producto::create($data);
+        $producto = Producto::create($data); //guarda el producte
 
         return redirect()
-            ->route('productos.show', $producto)
+            ->route('productos.show', $producto) //redirigeix al detall del producte
             ->with('success','Producte creat.');
     }
 
-    public function show(Producto $producto)
+    public function show(Producto $producto) //mostra el producte en detall
     {
         return view('productos.show', compact('producto'));
     }
 
-    public function edit(Producto $producto)
+    public function edit(Producto $producto) //mostra el formulari per editar el producte
     {
         return view('productos.edit', compact('producto'));
     }
 
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request, Producto $producto) //actualitza el producte amb validació
     {
         $data = $request->validate([
             'nombre'      => ['required','string','max:255'],
@@ -74,14 +75,14 @@ class ProductoController extends Controller
             'activo'      => ['required','boolean'],
         ]);
 
-        $producto->update($data);
+        $producto->update($data); //desa els canvis
 
         return redirect()
-            ->route('productos.show', $producto)
+            ->route('productos.show', $producto) //torna al detall amb missatge
             ->with('success','Producte actualitzat.');
     }
 
-    public function destroy(Producto $producto)
+    public function destroy(Producto $producto) //elimina el producte de la bd i torna al llistat
     {
         $producto->delete();
 

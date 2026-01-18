@@ -11,9 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class TakeawayController extends Controller
 {
-    /**
-     * Formulari per crear la comanda
-     */
+    //Formulari de la comanda
     public function create()
     {
         $productos = Producto::where('activo', true)
@@ -30,13 +28,11 @@ class TakeawayController extends Controller
         return view('takeaway.create', compact('productos','timeSlots'));
     }
 
-    /**
-     * Pas 1: Rep les dades per POST, les valida, calcula totals,
-     * GUARDA a la sessió, i REDIRIGEIX a la ruta GET 'takeaway.review'.
-     */
+    //Rep les dades per POST, les valida, calcula totals, GUARDA a la sessió, i REDIRIGEIX a la ruta GET 'takeaway.review'.
+     
     public function processReview(Request $request)
     {
-        // 1. Validació
+        //Validació
         $validated = $request->validate([
             'pickup_time' => ['required', 'string'],
             'lines'       => ['required', 'array'],
@@ -45,7 +41,7 @@ class TakeawayController extends Controller
         $pickupTime = $validated['pickup_time'];
         $lines      = $validated['lines'];
 
-        // 2. Càlcul de Detalls i Totals
+        // Càlcul de Detalls i Totals
         $detalls    = [];
         $subtotal   = 0;
         
@@ -80,7 +76,7 @@ class TakeawayController extends Controller
             ]);
         }
 
-        // 3. Càlcul de Descompte
+        // Càlcul de Descompte
         $user = Auth::user();
         $isWorker = $user && $user->rol === 'worker';
 
@@ -88,7 +84,7 @@ class TakeawayController extends Controller
         $discountAmount  = $isWorker ? $subtotal * 0.25 : 0;
         $total           = $subtotal - $discountAmount;
         
-        // 4. Guardar les dades calculades a la sessió (PRG)
+        // Guardar les dades calculades a la sessió (PRG)
         session()->put('takeaway_review_data', [
             'pickupTime'      => $pickupTime,
             'detalls'         => $detalls,
@@ -98,35 +94,31 @@ class TakeawayController extends Controller
             'total'           => $total,
         ]);
         
-        // 5. Redirigir a la vista de revisió (GET)
+        // Redirigir a la vista de revisió (GET)
         return redirect()->route('takeaway.review.post');
     }
 
 
-    /**
-     * Pas 2: Mostra la pàgina de revisió carregant les dades de la sessió. (GET)
-     */
+    //Mostra la pàgina de revisió carregant les dades de la sessió. (GET)
+    
     public function showReview()
     {
-        // 1. Carregar dades de la sessió
+        // Carregar dades de la sessió
         $data = session()->get('takeaway_review_data');
         
-        // 2. Si no hi ha dades, redirigeix a l'inici de la comanda
+        // si no hi ha dades, redirigeix a l'inici de la comanda
         if (!$data) {
             return redirect()->route('takeaway.create')->withErrors([
                 'general' => __('Sessió de comanda caducada. Torna a seleccionar els productes.'),
             ]);
         }
 
-        // 3. Mostrar la vista
+        // Mostrar la vista
         return view('takeaway.review', $data);
     }
     
 
-    /**
-     * Confirmar la comanda: guardar a BD. (STORE)
-     * Llegeix les dades PRG de la sessió per evitar doble enviament.
-     */
+    //confirma la comanda la guarda a la bd
     public function store(Request $request)
     {
         // Carreguem les dades calculades prèviament de la sessió i les eliminem
@@ -183,9 +175,7 @@ class TakeawayController extends Controller
     }
 
 
-    /**
-     * Pantalla de comanda creada amb èxit
-     */
+    //pantalla creada feta
     public function success(Pedido $pedido)
     {
         return view('takeaway.success', compact('pedido'));

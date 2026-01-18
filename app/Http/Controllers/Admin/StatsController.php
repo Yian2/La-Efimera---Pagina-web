@@ -16,7 +16,7 @@ class StatsController extends Controller
         $from      = $request->input('from');
         $to        = $request->input('to');
 
-        // 1. Dades per a la taula de Top Productes i Vendes Totals (Filtres)
+        //Dades per a la taula de Top Productes i Vendes Totals (Filtres)
         $detallesQuery = DB::table('detalles_pedido');
 
         // Aplicar filtre de producte a la consulta dels detalls
@@ -53,8 +53,8 @@ class StatsController extends Controller
         });
 
 
-        // 2. Dades per a les estadístiques generals (sense filtres específics de detall)
-        // Creem una nova consulta per a les estadístiques generals que només filtren per data
+        //Dades per a les estadístiques generals (sense filtres específics de detall)
+        //Creem una nova consulta per a les estadístiques generals que només filtren per data
         $ordersQuery = Pedido::query();
         
         if ($from) {
@@ -89,6 +89,4 @@ class StatsController extends Controller
             'to'
         ));
     }
-    
-    // El mètode 'show' no és necessari en el StatsController
 }
