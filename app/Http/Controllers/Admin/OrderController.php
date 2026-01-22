@@ -104,4 +104,24 @@ class OrderController extends Controller
 
         return view('admin.show', compact('pedido'));
     }
+
+    public function updateEstado(\Illuminate\Http\Request $request, \App\Models\Pedido $pedido)
+    {
+        // Com que ja estàs sota middleware can:admin, aquí no cal repetir checks d’admin.
+
+        $estado = $request->input('estado');
+
+        // Estats en català (els que guardarem a BD)
+        $allowed = array('pendent', 'preparant', 'llest', 'entregat');
+
+        if (!$estado || !in_array($estado, $allowed, true)) {
+            return redirect()->back()->withErrors(['estado' => 'Estat no vàlid.']);
+        }
+
+        $pedido->estado = $estado;
+        $pedido->save();
+
+        return redirect()->back()->with('success', 'Estat de la comanda actualitzat.');
+    }
+
 }

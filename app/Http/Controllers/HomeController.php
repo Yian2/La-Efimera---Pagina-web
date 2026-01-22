@@ -16,7 +16,7 @@ class HomeController extends Controller
             ->get()
             ->groupBy('tipo');
 
-        // labels per tipus → fem servir directament els textos que tens al JSON
+        // labels per tipus. Fem servir directament els textos que tens al JSON
         $labels = [
             'pizza_vermella' => [
                 'title'    => __('Les Vermelles'),

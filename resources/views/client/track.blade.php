@@ -111,7 +111,7 @@
             @foreach($orders as $pedido)
                 @php
                     // ordre dels estats
-                    $steps = ['pendiente', 'preparando', 'listo', 'entregado'];
+                    $steps = ['pendent', 'preparant', 'llest', 'entregat'];
                     $currentIndex = array_search($pedido->estado, $steps);
                     if ($currentIndex === false) {
                         $currentIndex = 0;

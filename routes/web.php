@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\StatsController as AdminStatsController;
 
+use App\Http\Controllers\Admin\AdminOrdersController;
+
 
 
 // HOME
@@ -98,9 +100,14 @@ Route::middleware(['auth', 'can:admin'])
         // Totes les comandes (Lista)
         Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
 
+        //Canvi estat comanda
+        Route::patch('/orders/{pedido}/estado', [AdminOrderController::class, 'updateEstado'])
+            ->name('orders.estado.update');
         
         // Estadístiques / vendes
         Route::get('/stats', [AdminStatsController::class, 'index'])->name('stats.index');
     });
+
+
 
 require __DIR__.'/auth.php';

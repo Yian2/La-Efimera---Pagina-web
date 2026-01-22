@@ -156,8 +156,24 @@
                                 {{ number_format($order->total, 2, ',', '.') }} €
                             </td>
                             <td style="padding:6px 4px;">
-                                {{ __($order->estado) }}
+                                <form method="POST" action="{{ route('admin.orders.estado.update', $order) }}">
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <select
+                                        name="estado"
+                                        onchange="this.form.submit()"
+                                        style="background:#0f1115;border:1px solid #444;color:#f5f5f5;
+                                            border-radius:8px;padding:4px 6px;font-size:13px;"
+                                    >
+                                        <option value="pendent"   @selected($order->estado === 'pendent')>Pendent</option>
+                                        <option value="preparant" @selected($order->estado === 'preparant')>En preparació</option>
+                                        <option value="llest"     @selected($order->estado === 'llest')>Llest</option>
+                                        <option value="entregat"  @selected($order->estado === 'entregat')>Entregat</option>
+                                    </select>
+                                </form>
                             </td>
+
                             <td style="padding:6px 4px;">
                                 {{ optional($order->fecha_creacion)->format('d/m/Y H:i') }}
                             </td>

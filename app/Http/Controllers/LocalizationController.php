@@ -13,7 +13,7 @@ class LocalizationController extends Controller
         App::setLocale($idioma);
         session()->put('idioma', $idioma);
 
-        // Desa cookie per sobreviure a canvis de sessió
+        // Guarda cookie per sobreviure a canvis de sessió
         Cookie::queue(cookie('idioma', $idioma, 60 * 24 * 365)); // 1 any
 
         return redirect()->back();

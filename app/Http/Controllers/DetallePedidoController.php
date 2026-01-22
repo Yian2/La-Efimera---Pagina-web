@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\DB;
 class DetallePedidoController extends Controller
 {
     public function store(Request $request, Pedido $pedido)
-    {
+    {//aquest metode crea una nova linia de comanda
+
         // Validem les dades d'entrada per crear una línia de comanda
         $data = $request->validate([
             'producto_id'     => ['required','exists:productos,id'],
@@ -33,7 +34,7 @@ class DetallePedidoController extends Controller
     }
 
     public function update(Request $request, Pedido $pedido, DetallePedido $detalle)
-    {
+    {//aquest metode actualitza la linia existent
         // Seguretat: assegurem que el detall pertany a aquest pedido (evita manipular línies d'altres comandes)
         abort_if($detalle->pedido_id !== $pedido->id, 404);
 
@@ -58,7 +59,7 @@ class DetallePedidoController extends Controller
     }
 
     public function destroy(Pedido $pedido, DetallePedido $detalle)
-    {
+    {//Elimina la linia 
         // Seguretat: comprovem que el detall és de la comanda indicada
         abort_if($detalle->pedido_id !== $pedido->id, 404);
 
